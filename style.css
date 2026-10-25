@@ -39,3 +39,27 @@ li strong { font-weight: 650; }
   .site-name { width: 100%; }
   main { padding-top: 2.5rem; }
 }
+
+
+/* Reference pages */
+.reference-page { max-width: 960px; padding-top: 2.6rem; }
+.source-note, .section-source, .source-inline { color: #60646b; font-size: 0.86rem; }
+.source-inline { white-space: nowrap; margin-left: 0.4em; }
+.on-page { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 0.8rem 0; margin: 1.8rem 0; font-size: 0.92rem; line-height: 2; }
+.on-page a { margin-right: 0.3em; }
+.reference-section { margin-top: 2.5rem; }
+.reference-section h2 { font-size: 1.3rem; margin-bottom: 0.1rem; }
+.reference-list { margin: 0.8rem 0 0; }
+.reference-entry { display: grid; grid-template-columns: minmax(145px, 235px) minmax(0, 1fr); gap: 0.4rem 1.7rem; border-top: 1px solid #e1e1df; padding: 0.85rem 0; font-size: 0.94rem; }
+.reference-entry dt { font-weight: 650; line-height: 1.45; }
+.reference-entry dd { margin: 0; line-height: 1.55; }
+.math-label { font-family: Cambria, Georgia, serif; font-size: 1.03rem; }
+.search-label { display: block; font-weight: 600; margin: 1.6rem 0 0.4rem; }
+#glossary-search { width: min(100%, 480px); font: inherit; border: 1px solid #8d9597; background: #fff; border-radius: 3px; padding: 0.55rem; }
+#result-count { margin-top: 0.3rem; }
+.equation { margin: 0.7rem 0; background: #f1f1ee; padding: 0.7rem 0.9rem; border-left: 2px solid #9aa9b1; font-family: Cambria, Georgia, serif; font-size: 1.12rem; overflow-wrap: anywhere; }
+[hidden] { display: none !important; }
+@media(max-width:620px) {
+  .reference-entry { grid-template-columns: 1fr; gap: 0.18rem; }
+  .reference-entry dt { font-size: 0.97rem; }
+}
