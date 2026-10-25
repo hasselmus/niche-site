@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en-GB">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="State vectors, physical balances, timescales, regime notation and observation variables in the Niche model.">
+<title>Variables and notation — Niche model</title><link rel="stylesheet" href="style.css"></head>
+<body><header class="site-header"><nav class="site-nav" aria-label="Site navigation"><a class="site-name" href="index.html">Niche model</a><div class="nav-links"><a href="index.html">Home</a><a href="model.html">The model</a><a href="variables.html" aria-current="page">Variables</a><a href="glossary.html">Terms</a><a href="dst_nct_coupled_state_space_simulator.html">Simulator</a></div></nav></header>
+<main class="reference-page">
+<h1>Variables and notation</h1>
+<p>Symbols used in the framework, grouped by function. Rates, stocks, timescales and institutional claims are kept distinct; most components require application-specific units and definitions.</p>
+<p class="source-note">Based on the framework draft of 21 October 2026. Chapter references indicate where the notation is defined or used. Symbols in the standalone simulator are not assumed to have identical implementations.</p>
+<nav class="on-page" aria-label="On this page"><a href="#v1">Coupled state-space</a> · <a href="#v2">Thermodynamic and material balances</a> · <a href="#v3">Characteristic times and horizons</a> · <a href="#v4">Regimes and thresholds</a> · <a href="#v5">Scenario reconstruction and observation</a></nav>
+<section id="v1" class="reference-section"><h2>Coupled state-space</h2><p class="section-source">Chs. 1–2, 4, 5, 13</p><dl class="reference-list"><div class="reference-entry"><dt class="math-label">x(t)</dt><dd>Complete coupled state, written (b(t), m(t), a(t), u(t)). A bookkeeping tuple, not four interchangeable quantities.</dd></div>
+<div class="reference-entry"><dt class="math-label">b(t)</dt><dd>Biological state vector: activity, population, demographic structure and labour. In the human application it also contains inherited, developmental and physiological variation.</dd></div>
+<div class="reference-entry"><dt class="math-label">m(t)</dt><dd>Material and constructed-environment state vector: physical reserves, habitat, infrastructures and functional structures.</dd></div>
+<div class="reference-entry"><dt class="math-label">a(t)</dt><dd>Inherited state vector. The general biological model uses inherited traits or allele distributions; the human institutional mapping uses rules, claims, organisational practices and models.</dd></div>
+<div class="reference-entry"><dt class="math-label">u(t)</dt><dd>External driving conditions and physical boundary inputs, such as solar, climatic and geophysical forcing. Not governed by the institution in the chosen model boundary.</dd></div>
+<div class="reference-entry"><dt class="math-label">F<sub>b</sub>, F<sub>m</sub>, F<sub>a</sub></dt><dd>System-specific rate functions governing changes in b, m and a. Their signs and functional forms must be specified for the application.</dd></div>
+<div class="reference-entry"><dt class="math-label">a<sub>rules</sub>(t)</dt><dd>Rules and operational procedures contained within the institutional state a(t).</dd></div>
+<div class="reference-entry"><dt class="math-label">a<sub>claims</sub>(t)</dt><dd>Institutionally recognised claims and liabilities concerning present or future command over activity and resources.</dd></div>
+<div class="reference-entry"><dt class="math-label">a<sub>models</sub>(t)</dt><dd>Institutional representations, forecasts, measurements and expectations used to coordinate activity.</dd></div>
+<div class="reference-entry"><dt class="math-label">x<sub>k</sub>(t)</dt><dd>The state of a specific bounded configuration or party k in the conflict/disaster application; consists of its own b, m, a and u.</dd></div>
+<div class="reference-entry"><dt class="math-label">b<sub>target</sub>(t)</dt><dd>Population state of a specified target group when modelling substrate-directed violence.</dd></div></dl></section>
+<section id="v2" class="reference-section"><h2>Thermodynamic and material balances</h2><p class="section-source">Chs. 1 and 3</p><dl class="reference-list"><div class="reference-entry"><dt class="math-label">t</dt><dd>Elapsed time, shared across the coupled equations.</dd></div>
+<div class="reference-entry"><dt class="math-label">S</dt><dd>Entropy of a declared system, in joules per kelvin (J/K).</dd></div>
+<div class="reference-entry"><dt class="math-label">Φ<sub>S</sub></dt><dd>Net entropy transfer rate into the system; may be negative, in J/(K·s).</dd></div>
+<div class="reference-entry"><dt class="math-label">σ</dt><dd>Internal entropy production rate; non-negative, in J/(K·s).</dd></div>
+<div class="reference-entry"><dt class="math-label">B(t)</dt><dd>Selected store of usable exergy, in joules (J), defined relative to a reference environment. It is not financial wealth.</dd></div>
+<div class="reference-entry"><dt class="math-label">P<sub>in</sub></dt><dd>Exergy transfer rate into the selected store B, in watts (W).</dd></div>
+<div class="reference-entry"><dt class="math-label">P<sub>out</sub></dt><dd>Exergy transfer rate out of B, in watts (W).</dd></div>
+<div class="reference-entry"><dt class="math-label">P<sub>dest</sub></dt><dd>Exergy destruction within the selected store, in watts (W).</dd></div>
+<div class="reference-entry"><dt class="math-label">s(t)</dt><dd>Vector of persistent constructed material states or service capacities within m(t); not a store of recoverable construction energy.</dd></div>
+<div class="reference-entry"><dt class="math-label">s<sub>i</sub>(t)</dt><dd>One selected structural state, e.g. transport capacity, insulation performance or storage protection.</dd></div>
+<div class="reference-entry"><dt class="math-label">G<sub>s</sub></dt><dd>Construction or replacement contribution to structural capacity, expressed as a rate of change of the chosen structural state.</dd></div>
+<div class="reference-entry"><dt class="math-label">R<sub>s</sub></dt><dd>Maintenance and restoration contribution to structural capacity, in the same units as G<sub>s</sub>.</dd></div>
+<div class="reference-entry"><dt class="math-label">D<sub>s</sub></dt><dd>Deterioration of structural function or capacity, in the same units as G<sub>s</sub>.</dd></div>
+<div class="reference-entry"><dt class="math-label">P<sub>conv</sub></dt><dd>Exergy throughput supplied to construction or structural conversion.</dd></div>
+<div class="reference-entry"><dt class="math-label">P<sub>maint</sub></dt><dd>Exergy throughput supplied to maintenance.</dd></div></dl></section>
+<section id="v3" class="reference-section"><h2>Characteristic times and horizons</h2><p class="section-source">Chs. 1–3 and 9</p><dl class="reference-list"><div class="reference-entry"><dt class="math-label">τ<sub>b</sub></dt><dd>Duration of a specified biological response or turnover process.</dd></div>
+<div class="reference-entry"><dt class="math-label">τ<sub>m</sub></dt><dd>Duration of change in a selected material store, habitat property or structure.</dd></div>
+<div class="reference-entry"><dt class="math-label">τ<sub>a</sub></dt><dd>In the core biological model, duration of inherited-trait or allele-frequency change; do not automatically equate it with institutional adjustment time.</dd></div>
+<div class="reference-entry"><dt class="math-label">τ<sub>u</sub></dt><dd>Duration of change in external forcing.</dd></div>
+<div class="reference-entry"><dt class="math-label">τ<sub>fin</sub></dt><dd>Fast symbolic and operational timescale: transactions, claims, algorithmic coordination and operational feedback.</dd></div>
+<div class="reference-entry"><dt class="math-label">τ<sub>inst</sub></dt><dd>Timescale for fundamental change in institutional rules and inherited operational structure.</dd></div>
+<div class="reference-entry"><dt class="math-label">τ<sub>dev</sub></dt><dd>Developmental calibration interval during which organisms sample conditions and form physiological, cognitive and reproductive responses.</dd></div>
+<div class="reference-entry"><dt class="math-label">τ<sub>sig</sub></dt><dd>Timescale for dispersed biological and behavioural responses to become a visible demographic signal.</dd></div>
+<div class="reference-entry"><dt class="math-label">H</dt><dd>Institutional representational horizon: how far forward a configuration assumes material and external continuity for present commitments.</dd></div>
+<div class="reference-entry"><dt class="math-label">T<sub>cover</sub></dt><dd>Duration a usable reserve can meet a defined shortfall; for a constant deficit, B<sub>available</sub>/P<sub>shortfall</sub>, provided delivery power is sufficient.</dd></div>
+<div class="reference-entry"><dt class="math-label">T<sub>accum</sub></dt><dd>Duration over which exergy for a subsequent pulse accumulates.</dd></div>
+<div class="reference-entry"><dt class="math-label">T<sub>pulse</sub></dt><dd>Duration over which concentrated mobilisation is discharged.</dd></div>
+<div class="reference-entry"><dt class="math-label">T<sub>refill</sub></dt><dd>Time required to replenish a reserve following a specified withdrawal.</dd></div>
+<div class="reference-entry"><dt class="math-label">T<sub>recur</sub></dt><dd>Interval between comparable withdrawals, pulses or mobilisation events.</dd></div>
+<div class="reference-entry"><dt class="math-label">T<sub>construct</sub></dt><dd>Construction or restoration time for a selected structural function.</dd></div>
+<div class="reference-entry"><dt class="math-label">T<sub>service</sub></dt><dd>Duration for which a structure remains above a stated service threshold under specified use and maintenance.</dd></div></dl></section>
+<section id="v4" class="reference-section"><h2>Regimes and thresholds</h2><p class="section-source">Chs. 4, 11–13</p><dl class="reference-list"><div class="reference-entry"><dt class="math-label">N<sub>0</sub></dt><dd>Incumbent institutional basin: the regime whose rules, material flows and population coordination are under examination.</dd></div>
+<div class="reference-entry"><dt class="math-label">N<sub>i</sub></dt><dd>A candidate successor regime, assessed under its own conditions rather than as a degraded version of N<sub>0</sub>.</dd></div>
+<div class="reference-entry"><dt class="math-label">Σ</dt><dd>Effective basin boundary or separatrix between dynamically distinct regimes.</dd></div>
+<div class="reference-entry"><dt class="math-label">Σ<sub>care</sub></dt><dd>Care boundary: proposed social-biological threshold associated with common recognition of non-fulfilment of institutional care commitments.</dd></div>
+<div class="reference-entry"><dt class="math-label">N<sub>i,exit</sub></dt><dd>Successor pathway formed through outward withdrawal from the incumbent configuration (Chapter 12).</dd></div></dl></section>
+<section id="v5" class="reference-section"><h2>Scenario reconstruction and observation</h2><p class="section-source">Ch. 14</p><dl class="reference-list"><div class="reference-entry"><dt class="math-label">t<sub>0</sub></dt><dd>Declared analytical present at which the inherited state is reconstructed.</dd></div>
+<div class="reference-entry"><dt class="math-label">c</dt><dd>Evidence cut-off: the latest information date admitted in a reconstruction.</dd></div>
+<div class="reference-entry"><dt class="math-label">y<sub>j</sub></dt><dd>Reported observation j; not identical to the complete underlying state.</dd></div>
+<div class="reference-entry"><dt class="math-label">O<sub>j</sub></dt><dd>Observation operator mapping the bounded state and an observer’s coordinates to y<sub>j</sub>.</dd></div>
+<div class="reference-entry"><dt class="math-label">R<sub>j</sub></dt><dd>Spatial, population or organisational boundary of observation j.</dd></div>
+<div class="reference-entry"><dt class="math-label">W<sub>j</sub></dt><dd>Observation or measurement interval relevant to j.</dd></div>
+<div class="reference-entry"><dt class="math-label">p<sub>j</sub></dt><dd>Information position of observer j.</dd></div>
+<div class="reference-entry"><dt class="math-label">H<sub>j</sub></dt><dd>Future horizon invoked by an observation or forecast, if any.</dd></div>
+<div class="reference-entry"><dt class="math-label">θ<sub>j</sub></dt><dd>Observation conventions: definitions, averaging, revisions and publication transformations.</dd></div>
+<div class="reference-entry"><dt class="math-label">ε<sub>j</sub></dt><dd>Observational error term.</dd></div>
+<div class="reference-entry"><dt class="math-label">D<sub>≤c</sub></dt><dd>Evidence admitted by the declared cut-off c.</dd></div>
+<div class="reference-entry"><dt class="math-label">A</dt><dd>Declared physical, observational and modelling assumptions.</dd></div>
+<div class="reference-entry"><dt class="math-label">X(t<sub>0</sub> | D<sub>≤c</sub>, A)</dt><dd>Set of present-state reconstructions compatible with the admitted evidence and assumptions; not necessarily a probability distribution.</dd></div></dl></section>
+<section class="reference-section" id="balances"><h2>Basic relations</h2>
+<div class="equation">dS/dt = Φ<sub>S</sub> + σ, &nbsp; σ ≥ 0</div>
+<div class="equation">dB/dt = P<sub>in</sub> − P<sub>out</sub> − P<sub>dest</sub></div>
+<div class="equation">ds/dt = G<sub>s</sub> + R<sub>s</sub> − D<sub>s</sub></div>
+<p class="source-note">These balances require declared system boundaries. The structural equation is schematic: its construction, restoration and deterioration terms are system-specific functions, not universal constants.</p>
+</section>
+<p class="source-note">Cross-reference: <a href="glossary.html">terms and concepts</a>.</p>
+</main></body></html>
