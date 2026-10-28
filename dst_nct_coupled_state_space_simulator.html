@@ -69,11 +69,17 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
 <nav aria-label="Site navigation" style="background:#0c111d; border-bottom:1px solid #334155; padding:0.55rem 1rem; font:14px system-ui,-apple-system,sans-serif;">
-  <div style="max-width:1800px; margin:0 auto; display:flex; flex-wrap:wrap; gap:1.3rem;">
+  <div style="max-width:1800px; margin:0 auto; display:flex; align-items:baseline; flex-wrap:wrap; gap:1.3rem;">
     <a href="index.html" style="color:#cbd5e1;text-decoration:underline;">Home</a>
     <a href="model.html" style="color:#cbd5e1;text-decoration:underline;">The model</a>
     <a href="variables.html" style="color:#cbd5e1;text-decoration:underline;">Variables</a>
     <a href="glossary.html" style="color:#cbd5e1;text-decoration:underline;">Terms</a>
+    <details style="position:relative;color:#cbd5e1;">
+      <summary style="cursor:pointer;color:#cbd5e1;">Hypotheses</summary>
+      <div style="position:absolute;top:calc(100% + 0.4rem);left:0;z-index:100;min-width:9rem;background:#111827;border:1px solid #475569;padding:0.5rem 0.75rem;">
+        <a href="hypotheses/trust.html" style="color:#e2e8f0;text-decoration:underline;">Trust</a>
+      </div>
+    </details>
     <a href="dst_nct_coupled_state_space_simulator.html" aria-current="page" style="color:#ffffff;font-weight:600;text-decoration:none;">Simulator</a>
   </div>
 </nav>

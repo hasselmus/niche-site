@@ -63,3 +63,30 @@ li strong { font-weight: 650; }
   .reference-entry { grid-template-columns: 1fr; gap: 0.18rem; }
   .reference-entry dt { font-size: 0.97rem; }
 }
+
+/* Hypotheses submenu */
+.nav-links { align-items: baseline; }
+.nav-dropdown { position: relative; }
+.nav-dropdown > summary { color: #164d76; cursor: pointer; white-space: nowrap; }
+.nav-dropdown > summary:hover { color: #0b314a; }
+.nav-dropdown > summary:focus-visible { outline: 2px solid #164d76; outline-offset: 4px; }
+.nav-dropdown[open] > summary, .nav-dropdown.nav-current > summary { color: #202020; font-weight: 650; }
+.nav-dropdown-panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  min-width: 10rem;
+  background: #fcfcfa;
+  border: 1px solid #ccc;
+  padding: 0.5rem 0.8rem;
+}
+.nav-dropdown-panel a { display: block; padding: 0.1rem 0; }
+.nav-dropdown-panel a[aria-current="page"] { color: #202020; font-weight: 650; text-decoration: none; }
+/* Long-form hypothesis pages */
+.hypothesis-article { padding-top: 2.5rem; }
+.hypothesis-article h2 { margin-top: 1.9rem; }
+.hypothesis-article hr { border: 0; border-top: 1px solid #dededb; margin: 1.8rem 0; }
+.hypothesis-article li { margin-bottom: 0.6rem; }
+.hypothesis-article ol { max-width: 68ch; padding-left: 1.4rem; }
+.hypothesis-article p, .hypothesis-article li { max-width: 72ch; }
