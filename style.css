@@ -93,7 +93,7 @@ li strong { font-weight: 650; }
 
 /* Embedded document reader */
 .pdf-page { min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; }
-.pdf-page .site-header { flex:none; }
+.pdf-page .site-header { flex:none; position:sticky; top:0; z-index:40; background:#fcfcfa; }
 .pdf-main { width:100%; max-width:none; margin:0; padding:1rem clamp(.75rem,2vw,1.5rem) 1.5rem; flex:1; min-height:0; display:flex; flex-direction:column; }
 .pdf-main h1 { font-size:clamp(1.2rem,2.2vw,1.6rem); margin:0 0 .25rem; }
 .pdf-actions { font-size:.88rem; margin:0 0 .65rem; }
