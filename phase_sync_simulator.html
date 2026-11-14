@@ -302,7 +302,42 @@
 </style>
 </head>
 <body>
-
+<nav aria-label="Site navigation" style="position:relative;z-index:100;background:#0c111d;border-bottom:1px solid #334155;padding:.55rem 1rem;margin:0 0 12px;font:14px/1.5 system-ui,-apple-system,sans-serif">
+  <div style="max-width:1800px;margin:0 auto;display:flex;align-items:baseline;flex-wrap:wrap;gap:1.3rem">
+    <a href="index.html" style="color:#cbd5e1;text-decoration:underline">Introduction</a>
+    <a href="framework.html" style="color:#cbd5e1;text-decoration:underline">Main Framework</a>
+    <details style="position:relative;color:#cbd5e1">
+      <summary style="cursor:pointer;color:#cbd5e1">Intro docs</summary>
+      <div style="position:absolute;top:calc(100% + .4rem);left:0;z-index:100;min-width:18rem;max-width:90vw;background:#111827;border:1px solid #475569;padding:.55rem .8rem;display:flex;flex-direction:column;gap:.3rem">
+        <a href="intro/framework.html" style="color:#e2e8f0;text-decoration:underline">Framework overview</a>
+        <a href="intro/culture.html" style="color:#e2e8f0;text-decoration:underline">Cultural Rehearsion, Pacification and Coordination</a>
+        <a href="intro/trust.html" style="color:#e2e8f0;text-decoration:underline">Trust Sensors</a>
+        <a href="intro/faith.html" style="color:#e2e8f0;text-decoration:underline">Shared Faiths</a>
+        <a href="intro/narratives.html" style="color:#e2e8f0;text-decoration:underline">Narratives (vs Strategies)</a>
+        <a href="intro/counter-population-coercion.html" style="color:#e2e8f0;text-decoration:underline">Counter-Population Coercion</a>
+      </div>
+    </details>
+    <a href="variables.html" style="color:#cbd5e1;text-decoration:underline">Variables</a>
+    <a href="glossary.html" style="color:#cbd5e1;text-decoration:underline">Terms</a>
+    <details style="position:relative;color:#cbd5e1">
+      <summary style="cursor:pointer;color:#cbd5e1">Hypotheses</summary>
+      <div style="position:absolute;top:calc(100% + .4rem);left:0;z-index:100;min-width:9rem;background:#111827;border:1px solid #475569;padding:.55rem .8rem;display:flex;flex-direction:column;gap:.3rem">
+        <a href="hypotheses/audit.html" style="color:#e2e8f0;text-decoration:underline">Audit</a>
+        <a href="hypotheses/trust.html" style="color:#e2e8f0;text-decoration:underline">Trust</a>
+      </div>
+    </details>
+    <details style="position:relative;color:#cbd5e1">
+      <summary style="cursor:pointer;color:#ffffff;font-weight:600">Simulator</summary>
+      <div style="position:absolute;top:calc(100% + .4rem);left:0;z-index:100;min-width:13rem;max-width:90vw;background:#111827;border:1px solid #475569;padding:.55rem .8rem;display:flex;flex-direction:column;gap:.4rem">
+        <a href="dst_nct_coupled_state_space_simulator.html" style="color:#e2e8f0;text-decoration:underline">Framework simulator</a>
+        <a href="phase_sync_simulator.html" aria-current="page" style="color:#ffffff;font-weight:600;text-decoration:none">Phase simulator</a>
+      </div>
+    </details>
+  </div>
+</nav>
+<p style="margin:0 0 12px;text-align:right;font:13px/1.5 system-ui,-apple-system,sans-serif">
+  <a href="phase_simulator_instructions.html" style="color:#93c5fd;text-decoration:underline">Instructions for the Phase simulator</a>
+</p>
 <header>
   <div class="title-block">
     <h1>Excitable Phase-Synchronisation & Multiplex Chimera Simulator</h1>
@@ -1109,5 +1144,9 @@ function animate() {
 updateParams();
 requestAnimationFrame(animate);
 </script>
+<script data-goatcounter="https://hasselmus.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 </body>
 </html>
