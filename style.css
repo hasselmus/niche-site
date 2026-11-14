@@ -101,3 +101,6 @@ li strong { font-weight: 650; }
 .pdf-frame { display:block; width:100%; flex:1 1 auto; height:calc(100vh - 11rem); height:calc(100dvh - 11rem); min-height:31rem; border:1px solid #ccc; background:#fff; }
 .nav-dropdown-panel a { white-space:normal; }
 @media(max-width:620px) { .pdf-main { padding:.75rem .5rem 1rem; } .pdf-frame { min-height:70vh; } }
+
+/* Long companion dropdown */
+.nav-dropdown-panel { max-height: min(75vh, 30rem); overflow-y:auto; }
