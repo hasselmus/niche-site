@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excitable Phase-Synchronisation & Multiplex Chimera Lab (DST-NCT)</title>
+<style>
+  :root {
+    --bg: #0b0f17;
+    --panel: #131a26;
+    --panel-border: #243044;
+    --text: #e2e8f0;
+    --muted: #8b9bb4;
+    --orchid: #38bdf8;
+    --elite: #f59e0b;
+    --dandelion: #10b981;
+    --danger: #ef4444;
+    --mimicry: #a855f7;
+    --care-zone: rgba(16, 185, 129, 0.16);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 12px;
+    overflow-x: hidden;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .title-block h1 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #fff;
+  }
+  .title-block p {
+    color: var(--muted);
+    font-size: 11.5px;
+  }
+  .preset-bar {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  button {
+    background: #1e293b;
+    color: var(--text);
+    border: 1px solid #334155;
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  button:hover { background: #334155; border-color: #475569; }
+  button.active-preset {
+    background: #1d4ed8;
+    border-color: #3b82f6;
+    color: #fff;
+  }
+  button.shock-btn {
+    background: #7f1d1d;
+    border-color: #dc2626;
+    color: #fecaca;
+  }
+  button.shock-btn:hover { background: #991b1b; }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 1024px) {
+    .main-grid { grid-template-columns: 1fr; }
+  }
+  .sidebar {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .control-group {
+    border-bottom: 1px solid var(--panel-border);
+    padding-bottom: 10px;
+  }
+  .control-group:last-child { border-bottom: none; padding-bottom: 0; }
+  .control-group h3 {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .slider-row {
+    margin-bottom: 7px;
+  }
+  .slider-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+  .slider-label span.val {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    color: var(--orchid);
+    font-weight: 600;
+  }
+  input[type="range"] {
+    width: 100%;
+    accent-color: #3b82f6;
+    cursor: pointer;
+    height: 5px;
+  }
+  .topo-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .topo-btn {
+    text-align: center;
+    padding: 7px 6px;
+    font-size: 11px;
+  }
+  .topo-btn.active {
+    background: #0f766e;
+    border-color: #14b8a6;
+    color: #fff;
+  }
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 12px;
+  }
+  .toggle-row input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
+  .equation-box {
+    background: #090d14;
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    padding: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 10.5px;
+    color: #cbd5e1;
+    line-height: 1.45;
+  }
+
+  .viz-area {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .status-banner {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-left: 4px solid var(--dandelion);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .status-banner .regime-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .status-banner .regime-desc {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .metrics-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    background: #090d14;
+    border: 1px solid #243044;
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+  }
+
+  .rings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 900px) {
+    .rings-grid { grid-template-columns: 1fr; }
+  }
+  .ring-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .ring-card h4 {
+    font-size: 12.5px;
+    margin-bottom: 2px;
+    text-align: center;
+  }
+  .ring-card .sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  canvas.ring-canvas {
+    background: #080b11;
+    border-radius: 50%;
+    border: 1px solid #1e293b;
+  }
+  .ring-stats {
+    width: 100%;
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    background: #090d14;
+    padding: 6px 8px;
+    border-radius: 5px;
+  }
+
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 900px) {
+    .charts-grid { grid-template-columns: 1fr; }
+  }
+  .chart-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 10px;
+  }
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .chart-header h4 {
+    font-size: 12px;
+    color: var(--text);
+  }
+  .legend {
+    display: flex;
+    gap: 10px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .legend span::before {
+    content: "● ";
+  }
+  .leg-a::before { color: var(--orchid); }
+  .leg-b::before { color: var(--elite); }
+  .leg-c::before { color: var(--dandelion); }
+  .leg-v::before { color: #f43f5e; }
+  canvas.plot-canvas {
+    width: 100%;
+    height: 190px;
+    background: #080b11;
+    border: 1px solid #1e293b;
+    border-radius: 5px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-block">
+    <h1>Excitable Phase-Synchronisation & Multiplex Chimera Simulator</h1>
+    <p>Interactive Companion Lab: Second-Order Shinomoto–Kuramoto Active Rotators, GUTS Safety Pinning, Global Games & Kin Topology</p>
+  </div>
+  <div class="preset-bar">
+    <button onclick="applyPreset('phase1')" id="btn-phase1" class="active-preset">Phase I: Buffered Niche</button>
+    <button onclick="applyPreset('chimera')" id="btn-chimera">Phase II: Chimeric Institution</button>
+    <button onclick="applyPreset('individualism')" id="btn-individualism">Statsindividualism Silent Snap</button>
+    <button onclick="applyPreset('cliff')" id="btn-cliff">Phase III: Hysteretic Cliff</button>
+    <button onclick="applyPreset('phase4')" id="btn-phase4">Phase IV: Modular Ni Re-Pinning</button>
+    <button onclick="injectShock()" class="shock-btn">⚡ Inject u(t) / τ_fin Shock</button>
+  </div>
+</header>
+
+<div class="main-grid">
+  <!-- LEFT SIDEBAR CONTROLS -->
+  <aside class="sidebar">
+    <div class="control-group">
+      <h3>1. Relational Topology (Section 3.4)</h3>
+      <div class="topo-switch">
+        <button id="topo-kin" class="topo-btn active" onclick="setTopology('kin')">Kin / Clan Mesh<br><small>(High S_kin & K_kin)</small></button>
+        <button id="topo-ind" class="topo-btn" onclick="setTopology('individualist')">Hub & Spoke<br><small>(Statsindividualism)</small></button>
+      </div>
+      <div style="font-size:11px; color:var(--muted);" id="topo-hint">
+        Kin co-regulation shields Orchids early, but transmits alarm upward to Dandelions once breached.
+      </div>
+    </div>
+
+    <div class="control-group">
+      <h3>2. Thermodynamic & Care Substrate</h3>
+      <div class="slider-row">
+        <div class="slider-label">
+          <span>Common-Mode Friction E(t) [dB/dt &lt; 0]</span>
+          <span class="val" id="val-E">0.15</span>
+        </div>
+        <input type="range" id="sl-E" min="0" max="1.6" step="0.02" value="0.15" oninput="updateParams()">
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label">
+          <span>Institutional Care Boundary (Σ_care / S_inst)</span>
+          <span class="val" id="val-Sinst">0.85</span>
+        </div>
+        <input type="range" id="sl-Sinst" min="0" max="1.0" step="0.02" value="0.85" oninput="updateParams()">
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label">
+          <span>Kin Alloparental Buffer (S_kin)</span>
+          <span class="val" id="val-Skin">0.75</span>
+        </div>
+        <input type="range" id="sl-Skin" min="0" max="1.0" step="0.02" value="0.75" oninput="updateParams()">
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label">
+          <span>Shared Macro Volatility (σ_c ξ_c Common Noise)</span>
+          <span class="val" id="val-sigC">0.15</span>
+        </div>
+        <input type="range" id="sl-sigC" min="0" max="1.2" step="0.02" value="0.15" oninput="updateParams()">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <h3>3. Multiplex Coupling & Inertia</h3>
+      <div class="slider-row">
+        <div class="slider-label">
+          <span>elite τ_fin Ticker Forcing (F^B / Global Games)</span>
+          <span class="val" id="val-FB">0.20</span>
+        </div>
+        <input type="range" id="sl-FB" min="0" max="1.5" step="0.02" value="0.20" oninput="updateParams()">
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label">
+          <span>Upward Kin Backchannel (K_CA: Youth → Elder)</span>
+          <span class="val" id="val-KCA">0.65</span>
+        </div>
+        <input type="range" id="sl-KCA" min="0" max="1.5" step="0.05" value="0.65" oninput="updateParams()">
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label">
+          <span>Dandelion Schema Inertia (m_i^C)</span>
+          <span class="val" id="val-mC">3.20</span>
+        </div>
+        <input type="range" id="sl-mC" min="0.5" max="6.0" step="0.1" value="3.20" oninput="updateParams()">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <h3>4. Institutional & Cultural Modulators</h3>
+      <div class="toggle-row">
+        <label for="chk-mimicry">Schema Mimicry / Parakin Placebo (Ch. 10 & 12)</label>
+        <input type="checkbox" id="chk-mimicry" onchange="updateParams()">
+      </div>
+      <div class="toggle-row">
+        <label for="chk-contrarian">Dual-Wave Split (±K Conformist/Contrarian)</label>
+        <input type="checkbox" id="chk-contrarian" onchange="updateParams()">
+      </div>
+      <div style="margin-top:6px; display:flex; gap:6px;">
+        <button onclick="clearHysteresisTrace()" style="width:100%;">Clear Hysteresis Loop Trace</button>
+      </div>
+    </div>
+
+    <div class="equation-box">
+      <strong>Active-Rotator Multiplex Eq (1):</strong><br>
+      m_i d²θ_i/dt² + γ dθ_i/dt = ω_i − a_i(S)sin(θ_i)<br>
+      &nbsp;&nbsp;+ Σ K_XY R_Y sin(Ψ_Y − θ_i) + β_i E(t) + σ_c ξ_c<br>
+      • <strong>Green Arc:</strong> GUTS Safety Well (|Ω_i| &lt; a_i)<br>
+      • <strong>Red Line:</strong> SNIC Excitation Threshold θ_u
+    </div>
+  </aside>
+
+  <!-- RIGHT VISUALIZATION AREA -->
+  <main class="viz-area">
+    <!-- STATUS BANNER -->
+    <div class="status-banner" id="status-banner">
+      <div>
+        <div class="regime-name" id="regime-title">PHASE I: HOMEODYNAMIC CONSOLIDATION (Buffered Niche)</div>
+        <div class="regime-desc" id="regime-subtitle">Safety pinning holds Layer A & C in &lt;Care&gt;; scattered Orchid excursions cancel out as O(√N) noise.</div>
+      </div>
+      <div class="metrics-pills">
+        <div class="pill">Horizon H_pop: <strong id="pill-H" style="color:#10b981;">24.5 yrs (SLHS)</strong></div>
+        <div class="pill">Fiduciary Mode: <strong id="pill-fid" style="color:#10b981;">Stationary (τ_inst)</strong></div>
+      </div>
+    </div>
+
+    <!-- THREE LAYER RINGS -->
+    <div class="rings-grid">
+      <!-- LAYER A -->
+      <div class="ring-card">
+        <h4 style="color:var(--orchid);">Layer A: Orchid Vanguard</h4>
+        <div class="sub">High Gain (β_A=1.35), Low Pinning (a_0=0.45), Low Inertia</div>
+        <canvas id="canvas-A" class="ring-canvas" width="230" height="230"></canvas>
+        <div class="ring-stats">
+          <div>Coherence R_A: <strong id="stat-RA" style="color:var(--orchid);">0.12</strong></div>
+          <div>Variance V_A: <strong id="stat-VA" style="color:#f43f5e;">0.18</strong></div>
+          <div>Pinned &lt;Care&gt;: <strong id="stat-pinA">88%</strong></div>
+          <div>Margin δ_A: <strong id="stat-delA">+0.62</strong></div>
+        </div>
+      </div>
+
+      <!-- LAYER B -->
+      <div class="ring-card">
+        <h4 style="color:var(--elite);">Layer B: Elite / Managerial Nodes</h4>
+        <div class="sub">Driven by τ_fin Tickers & Global-Games Solvency Threshold</div>
+        <canvas id="canvas-B" class="ring-canvas" width="230" height="230"></canvas>
+        <div class="ring-stats">
+          <div>Coherence R_B: <strong id="stat-RB" style="color:var(--elite);">0.09</strong></div>
+          <div>Global Game: <strong id="stat-GG">Cooperate</strong></div>
+          <div>Pinned (τ_inst): <strong id="stat-pinB">92%</strong></div>
+          <div>B_sub Triage: <strong id="stat-triage">Low</strong></div>
+        </div>
+      </div>
+
+      <!-- LAYER C -->
+      <div class="ring-card">
+        <h4 style="color:var(--dandelion);">Layer C: Dandelion Core</h4>
+        <div class="sub">Low Gain (β_C=0.45), Deep Pinning (a_0=1.05), High Inertia m_C</div>
+        <canvas id="canvas-C" class="ring-canvas" width="230" height="230"></canvas>
+        <div class="ring-stats">
+          <div>Coherence R_C: <strong id="stat-RC" style="color:var(--dandelion);">0.06</strong></div>
+          <div>Inertia m_C: <strong id="stat-mC">3.20</strong></div>
+          <div>Pinned &lt;Care&gt;: <strong id="stat-pinC">98%</strong></div>
+          <div>Margin δ_C: <strong id="stat-delC">+1.15</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM OSCILLOSCOPE & HYSTERESIS CHARTS -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h4>Real-Time Telemetry: Order Parameters R_X(t) & Vanguard Variance V_A(t)</h4>
+          <div class="legend">
+            <span class="leg-a">R_A (Orchid)</span>
+            <span class="leg-v">V_A (Orchid Var)</span>
+            <span class="leg-b">R_B (Elite τ_fin)</span>
+            <span class="leg-c">R_C (Dandelion)</span>
+          </div>
+        </div>
+        <canvas id="canvas-time" class="plot-canvas" width="600" height="190"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h4>Asymmetric Hysteresis Loop: Core Locking vs. Friction E(t)</h4>
+          <div class="legend">
+            <span class="leg-c">Current State (E, Fast-Rate_C)</span>
+          </div>
+        </div>
+        <canvas id="canvas-hyst" class="plot-canvas" width="400" height="190"></canvas>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+// ============================================================================
+// EXCITABLE INERTIAL SHINOMOTO-KURAMOTO MULTIPLEX ENGINE
+// Implements Equations (1)-(3) from Companion_Excitable_Phase_Synchronisation
+// ============================================================================
+
+const N = 48; // Oscillators per layer
+const dt = 0.045;
+
+const params = {
+  E: 0.15,        // Common-mode environmental compression E(t)
+  S_inst: 0.85,   // Institutional care & predictability buffer (Sigma_care)
+  S_kin: 0.75,    // Kin / alloparental buffer
+  sigC: 0.15,     // Common noise amplitude sigma_c
+  FB: 0.20,       // Elite high-frequency ticker forcing
+  KCA: 0.65,      // Intergenerational kin backchannel coupling (Layer A -> C)
+  mC: 3.20,       // Second-order dynamical inertia of Layer C
+  mimicry: false, // Schema mimicry / Parakin placebo toggle
+  contrarian: false, // Hong-Strogatz +/-K dual-wave splitting
+  topology: 'kin' // 'kin' or 'individualist'
+};
+
+let shockPulse = 0;
+
+function createLayer(layerType) {
+  const units = [];
+  for (let i = 0; i < N; i++) {
+    // Heterogeneous intrinsic drift omega_i around base rate
+    const spread = (i / N - 0.5) * 0.36 + (Math.random() - 0.5) * 0.08;
+    let omega0 = 0.28 + spread;
+    let a0 = 0.50;
+    let beta = 1.0;
+    let m = 0.35;
+    let gamma = 1.0;
+    let sigPriv = 0.22;
+
+    if (layerType === 'A') {
+      // Orchids: high sensitivity gain beta_i, narrow pinning a_0, low inertia m_i
+      omega0 = 0.32 + spread * 1.1;
+      a0 = 0.44;
+      beta = 1.38;
+      m = 0.25;
+      sigPriv = 0.34;
+    } else if (layerType === 'B') {
+      // Elites/Managers: moderate inertia, sensitive to Global Games & tau_fin
+      omega0 = 0.26 + spread * 0.8;
+      a0 = 0.68;
+      beta = 0.85;
+      m = 0.55;
+      sigPriv = 0.16;
+    } else if (layerType === 'C') {
+      // Dandelions: low sensitivity beta_i, deep safety pinning a_0, high inertia m_C
+      omega0 = 0.22 + spread * 0.7;
+      a0 = 0.98;
+      beta = 0.45;
+      m = params.mC;
+      sigPriv = 0.12;
+    }
+
+    units.push({
+      theta: (Math.random() - 0.5) * 0.5,
+      v: 0, // d(theta)/dt
+      omega: omega0,
+      a0: a0,
+      beta: beta,
+      m: m,
+      gamma: gamma,
+      sigPriv: sigPriv,
+      sign: (i % 3 === 0) ? -1 : 1, // For Hong-Strogatz contrarian cluster split
+      excursion: false
+    });
+  }
+  return units;
+}
+
+const layers = {
+  A: createLayer('A'),
+  B: createLayer('B'),
+  C: createLayer('C')
+};
+
+const telemetry = {
+  RA: 0, RB: 0, RC: 0,
+  psiA: 0, psiB: 0, psiC: 0,
+  VA: 0,
+  fastA: 0, fastB: 0, fastC: 0,
+  delA: 0, delC: 0,
+  globalGameDefect: false,
+  history: [],
+  hysteresisTrace: []
+};
+
+// Gaussian noise helper (Box-Muller)
+function randn() {
+  let u = 0, v = 0;
+  while (u === 0) u = Math.random();
+  while (v === 0) v = Math.random();
+  return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+}
+
+function computeLayerOrder(units) {
+  let sumCos = 0, sumSin = 0;
+  let sumVel = 0;
+  let pinnedCount = 0;
+
+  for (let i = 0; i < units.length; i++) {
+    const u = units[i];
+    sumCos += Math.cos(u.theta);
+    sumSin += Math.sin(u.theta);
+    sumVel += Math.abs(u.v);
+    if (!u.excursion) pinnedCount++;
+  }
+  const R = Math.sqrt(sumCos * sumCos + sumSin * sumSin) / units.length;
+  const psi = Math.atan2(sumSin, sumCos);
+
+  // Compute circular dispersion / excursion variance for Vanguard V_A
+  // High when half the units are firing asynchronously at random phases
+  const activeFrac = 1 - (pinnedCount / units.length);
+  const asyncVar = activeFrac * (1 - R * R) * 1.8 + (1 - R) * 0.25 * ( sumVel / units.length );
+
+  return {
+    R: R,
+    psi: psi,
+    pinnedFrac: pinnedCount / units.length,
+    activeFrac: activeFrac,
+    variance: Math.min(1.0, asyncVar),
+    meanSpeed: sumVel / units.length
+  };
+}
+
+function stepPhysics() {
+  // Decay transient shock pulse
+  if (shockPulse > 0.001) shockPulse *= 0.96;
+  else shockPulse = 0;
+
+  const E_eff = params.E + shockPulse;
+  // Shared stochastic forcing xi_c(t) (Teramae-Tanaka common noise)
+  const xi_c = randn() * Math.sqrt(dt);
+
+  const ordA = computeLayerOrder(layers.A);
+  const ordB = computeLayerOrder(layers.B);
+  const ordC = computeLayerOrder(layers.C);
+
+  // --- LAYER A: ORCHID VANGUARD ---
+  // Bi-directional sensitivity chi_A = 1.35 to kin and institutional safety cues
+  const S_eff_A = (params.topology === 'kin')
+    ? (0.65 * params.S_kin + 0.55 * params.S_inst)
+    : (0.10 * params.S_kin + 0.95 * params.S_inst); // Hub-and-spoke relies almost solely on S_inst
+
+  const K_AA = (params.topology === 'kin') ? 0.85 : 0.18; // Low peer coupling in Statsindividualism
+  let sumDelA = 0;
+
+  for (let i = 0; i < N; i++) {
+    const u = layers.A[i];
+    const a_i = u.a0 + 1.25 * S_eff_A;
+    const cSign = params.contrarian ? u.sign : 1;
+    const socialA = K_AA * cSign * ordA.R * Math.sin(ordA.psi - u.theta);
+
+    // Teramae-Tanaka common-noise term contracts phases when pinning weakens
+    const commonForcing = u.beta * E_eff + params.sigC * 1.4 * xi_c * (1 + 0.8 * Math.sin(u.theta));
+    const privNoise = u.sigPriv * randn() * Math.sqrt(dt);
+
+    const drive = u.omega + u.beta * E_eff + K_AA * ordA.R;
+    sumDelA += (a_i - drive);
+
+    const force = u.omega - a_i * Math.sin(u.theta) + socialA + commonForcing + privNoise;
+    const acc = (force - u.gamma * u.v) / u.m;
+    u.v += acc * dt;
+    u.theta = (u.theta + u.v * dt) % (2 * Math.PI);
+    if (u.theta < 0) u.theta += 2 * Math.PI;
+    u.excursion = (Math.abs(u.v) > 0.42 || Math.cos(u.theta) < -0.15);
+  }
+
+  // --- LAYER B: ELITE / MANAGERIAL NODES ---
+  // Global Games solvency threshold (Carlsson & van Damme 1993; Morris & Shin 1998)
+  const solvencySignal = params.S_inst - 0.65 * E_eff - 0.55 * params.FB;
+  const globalGamesDefect = solvencySignal < 0.05;
+  telemetry.globalGameDefect = globalGamesDefect;
+
+  const K_BB = globalGamesDefect ? 1.45 : 0.45; // Institutional isomorphism spikes once threshold crossed
+  const a_B_eff = globalGamesDefect ? 0.18 : (0.68 + 0.85 * params.S_inst);
+
+  for (let i = 0; i < N; i++) {
+    const u = layers.B[i];
+    const socialB = K_BB * ordB.R * Math.sin(ordB.psi - u.theta) + 0.25 * ordA.activeFrac * Math.sin(ordA.psi - u.theta);
+    const tickerDrive = u.beta * (params.FB * 1.3 + 0.6 * E_eff) + (globalGamesDefect ? 0.65 : 0);
+    const commonB = params.sigC * 0.9 * xi_c * (1 + 0.6 * Math.sin(u.theta));
+    const privNoise = u.sigPriv * randn() * Math.sqrt(dt);
+
+    const force = u.omega - a_B_eff * Math.sin(u.theta) + socialB + tickerDrive + commonB + privNoise;
+    const acc = (force - u.gamma * u.v) / u.m;
+    u.v += acc * dt;
+    u.theta = (u.theta + u.v * dt) % (2 * Math.PI);
+    if (u.theta < 0) u.theta += 2 * Math.PI;
+    u.excursion = (Math.abs(u.v) > 0.38 || Math.cos(u.theta) < -0.15);
+  }
+
+  // --- LAYER C: HIGH-INERTIA DANDELION CORE ---
+  // Schema Mimicry artificially inflates perceived safety S_mimicry until physical Sigma_care collapses
+  const mimicryBoost = (params.mimicry && params.S_inst > 0.22) ? 0.48 : 0.0;
+  const S_eff_C = 0.65 * params.S_inst + 0.45 * params.S_kin + mimicryBoost;
+
+  // Cross-layer pull from Vanguard (K_CA * active/coherent vanguard) and Elites (K_CB)
+  const vanguardSignal = ordA.activeFrac * (0.4 + 0.6 * ordA.R);
+  const eliteTriageLoad = ordB.activeFrac * 0.45;
+  let sumDelC = 0;
+
+  for (let i = 0; i < N; i++) {
+    const u = layers.C[i];
+    u.m = params.mC; // Second-order inertia m_i^C
+    // Low damping when m_C is large creates the Tanaka (1997) asymmetric hysteresis loop
+    const gammaC = 0.58;
+    const a_i = u.a0 + 0.95 * S_eff_C;
+
+    const cSign = params.contrarian ? u.sign : 1;
+    const intraC = 0.95 * cSign * ordC.R * Math.sin(ordC.psi - u.theta);
+    const crossPull = params.KCA * vanguardSignal + eliteTriageLoad;
+
+    const drive = u.omega + u.beta * E_eff + crossPull + 0.85 * ordC.activeFrac;
+    sumDelC += (a_i - drive);
+
+    const privNoise = u.sigPriv * randn() * Math.sqrt(dt);
+    const force = u.omega - a_i * Math.sin(u.theta) + intraC + u.beta * E_eff + crossPull + privNoise;
+    const acc = (force - gammaC * u.v) / u.m;
+    u.v += acc * dt;
+    u.theta = (u.theta + u.v * dt) % (2 * Math.PI);
+    if (u.theta < 0) u.theta += 2 * Math.PI;
+    u.excursion = (Math.abs(u.v) > 0.35 || Math.cos(u.theta) < -0.15);
+  }
+
+  // Store updated metrics
+  const newA = computeLayerOrder(layers.A);
+  const newB = computeLayerOrder(layers.B);
+  const newC = computeLayerOrder(layers.C);
+
+  telemetry.RA = newA.R; telemetry.psiA = newA.psi;
+  telemetry.RB = newB.R; telemetry.psiB = newB.psi;
+  telemetry.RC = newC.R; telemetry.psiC = newC.psi;
+  telemetry.VA = newA.variance;
+  telemetry.fastA = newA.activeFrac;
+  telemetry.fastB = newB.activeFrac;
+  telemetry.fastC = newC.activeFrac;
+  telemetry.delA = sumDelA / N;
+  telemetry.delC = sumDelC / N;
+
+  telemetry.history.push({
+    RA: newA.activeFrac * 0.7 + newA.R * 0.3,
+    RB: newB.activeFrac * 0.7 + newB.R * 0.3,
+    RC: newC.activeFrac * 0.7 + newC.R * 0.3,
+    VA: newA.variance
+  });
+  if (telemetry.history.length > 280) telemetry.history.shift();
+
+  // Sample Hysteresis point (E_eff vs Layer C Fast-Clock Excitation)
+  if (Math.random() < 0.35) {
+    telemetry.hysteresisTrace.push({
+      E: Math.min(1.6, E_eff),
+      RC: telemetry.fastC
+    });
+    if (telemetry.hysteresisTrace.length > 350) telemetry.hysteresisTrace.shift();
+  }
+}
+
+// ============================================================================
+// RENDERING: THREE CIRCULAR PHASE RINGS + OSCILLOSCOPE + HYSTERESIS PLOT
+// ============================================================================
+
+function drawRing(canvasId, units, orderStat, colorHex, deltaMargin) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const cx = w / 2, cy = h / 2;
+  const radius = 84;
+
+  ctx.clearRect(0, 0, w, h);
+
+  // 1. Draw Homeostatic <Care> Pinning Sector (Green Safe Arc around theta = 0, i.e. right side)
+  if (deltaMargin > -0.15) {
+    const wellWidth = Math.max(0.18, Math.min(1.15, 0.45 + deltaMargin * 0.45));
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, -wellWidth, wellWidth);
+    ctx.strokeStyle = 'rgba(16, 185, 129, 0.38)';
+    ctx.lineWidth = 14;
+    ctx.stroke();
+  }
+
+  // 2. Main unit circle track
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
+  ctx.strokeStyle = '#243044';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // 3. Draw SNIC Excitation Threshold Marker (theta_u near pi/2)
+  const thAngle = 1.15;
+  ctx.beginPath();
+  ctx.moveTo(cx + (radius - 12) * Math.cos(thAngle), cy + (radius - 12) * Math.sin(thAngle));
+  ctx.lineTo(cx + (radius + 12) * Math.cos(thAngle), cy + (radius + 12) * Math.sin(thAngle));
+  ctx.strokeStyle = '#ef4444';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Labels for <Care> and SNIC
+  ctx.fillStyle = '#10b981';
+  ctx.font = 'bold 10px sans-serif';
+  ctx.fillText('<Care>', cx + radius - 42, cy + 4);
+
+  ctx.fillStyle = '#ef4444';
+  ctx.font = '10px sans-serif';
+  ctx.fillText('SNIC θ_u', cx + 18, cy + radius + 16);
+
+  // 4. Draw Mean-Field Order Parameter Vector Z(t) = R * exp(i*Psi)
+  const vecLen = orderStat.R * (radius - 14);
+  const vx = cx + vecLen * Math.cos(orderStat.psi);
+  const vy = cy + vecLen * Math.sin(orderStat.psi);
+
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.lineTo(vx, vy);
+  ctx.strokeStyle = colorHex;
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(vx, vy, 4.5, 0, 2 * Math.PI);
+  ctx.fillStyle = colorHex;
+  ctx.fill();
+
+  // 5. Draw Individual Agents (Oscillators)
+  for (let i = 0; i < units.length; i++) {
+    const u = units[i];
+    const rJit = radius + ((i % 5) - 2) * 2.2;
+    const x = cx + rJit * Math.cos(u.theta);
+    const y = cy + rJit * Math.sin(u.theta);
+
+    ctx.beginPath();
+    ctx.arc(x, y, u.excursion ? 4.2 : 3.4, 0, 2 * Math.PI);
+    if (u.excursion) {
+      ctx.fillStyle = (params.contrarian && u.sign < 0) ? '#ec4899' : '#f43f5e';
+    } else {
+      ctx.fillStyle = colorHex;
+    }
+    ctx.fill();
+  }
+}
+
+function drawTimeChart() {
+  const canvas = document.getElementById('canvas-time');
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  // Grid lines
+  ctx.strokeStyle = '#161f30';
+  ctx.lineWidth = 1;
+  for (let g = 0.25; g < 1.0; g += 0.25) {
+    ctx.beginPath();
+    ctx.moveTo(0, h * (1 - g));
+    ctx.lineTo(w, h * (1 - g));
+    ctx.stroke();
+  }
+
+  const hist = telemetry.history;
+  if (hist.length < 2) return;
+
+  function plotSeries(key, color, dashed = false) {
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = dashed ? 1.6 : 2.2;
+    if (dashed) ctx.setLineDash([4, 3]);
+    else ctx.setLineDash([]);
+
+    for (let i = 0; i < hist.length; i++) {
+      const x = (i / 280) * w;
+      const y = h - Math.max(0.02, Math.min(0.98, hist[i][key])) * (h - 14) - 7;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  plotSeries('VA', '#f43f5e', true);  // Orchid Variance (dashed red)
+  plotSeries('RA', '#38bdf8', false); // Layer A (Orchid)
+  plotSeries('RB', '#f59e0b', false); // Layer B (Elite)
+  plotSeries('RC', '#10b981', false); // Layer C (Dandelion)
+}
+
+function drawHysteresisChart() {
+  const canvas = document.getElementById('canvas-hyst');
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  const padL = 34, padR = 14, padT = 14, padB = 24;
+  const pw = w - padL - padR;
+  const ph = h - padT - padB;
+
+  // Axes
+  ctx.strokeStyle = '#334155';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(padL, padT);
+  ctx.lineTo(padL, h - padB);
+  ctx.lineTo(w - padR, h - padB);
+  ctx.stroke();
+
+  ctx.fillStyle = '#8b9bb4';
+  ctx.font = '10px sans-serif';
+  ctx.fillText('1.0', 8, padT + 6);
+  ctx.fillText('0.0', 8, h - padB);
+  ctx.fillText('Friction E(t) = 0', padL, h - 6);
+  ctx.fillText('E_forward → 1.6', w - 95, h - 6);
+
+  // Theoretical reference hysteresis guide (faint dashed S-loop)
+  ctx.strokeStyle = 'rgba(148, 163, 184, 0.18)';
+  ctx.setLineDash([3, 3]);
+  ctx.beginPath();
+  ctx.moveTo(padL, h - padB);
+  ctx.lineTo(padL + pw * 0.62, h - padB - ph * 0.12);
+  ctx.lineTo(padL + pw * 0.68, padT + ph * 0.1);
+  ctx.lineTo(padL + pw * 0.25, padT + ph * 0.15);
+  ctx.lineTo(padL + pw * 0.20, h - padB);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Plot recorded trace points
+  const trace = telemetry.hysteresisTrace;
+  for (let i = 0; i < trace.length; i++) {
+    const pt = trace[i];
+    const x = padL + (pt.E / 1.6) * pw;
+    const y = (h - padB) - pt.RC * ph;
+    ctx.fillStyle = 'rgba(16, 185, 129, 0.35)';
+    ctx.beginPath();
+    ctx.arc(x, y, 2.5, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+
+  // Current operating point
+  const curX = padL + (Math.min(1.6, params.E + shockPulse) / 1.6) * pw;
+  const curY = (h - padB) - telemetry.fastC * ph;
+  ctx.fillStyle = '#10b981';
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(curX, curY, 6, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.stroke();
+}
+
+function updateReadouts() {
+  document.getElementById('stat-RA').textContent = telemetry.RA.toFixed(2);
+  document.getElementById('stat-VA').textContent = telemetry.VA.toFixed(2);
+  document.getElementById('stat-pinA').textContent = Math.round((1 - telemetry.fastA) * 100) + '%';
+  document.getElementById('stat-delA').textContent = (telemetry.delA >= 0 ? '+' : '') + telemetry.delA.toFixed(2);
+  document.getElementById('stat-delA').style.color = telemetry.delA > 0 ? '#10b981' : '#ef4444';
+
+  document.getElementById('stat-RB').textContent = telemetry.RB.toFixed(2);
+  document.getElementById('stat-GG').textContent = telemetry.globalGameDefect ? 'DEFECT (τ_fin)' : 'Stewardship';
+  document.getElementById('stat-GG').style.color = telemetry.globalGameDefect ? '#ef4444' : '#10b981';
+  document.getElementById('stat-pinB').textContent = Math.round((1 - telemetry.fastB) * 100) + '%';
+  document.getElementById('stat-triage').textContent = telemetry.fastB > 0.5 ? 'ACTIVE (B_sub)' : 'Minimal';
+  document.getElementById('stat-triage').style.color = telemetry.fastB > 0.5 ? '#f59e0b' : '#8b9bb4';
+
+  document.getElementById('stat-RC').textContent = telemetry.RC.toFixed(2);
+  document.getElementById('stat-mC').textContent = params.mC.toFixed(2);
+  document.getElementById('stat-pinC').textContent = Math.round((1 - telemetry.fastC) * 100) + '%';
+  document.getElementById('stat-delC').textContent = (telemetry.delC >= 0 ? '+' : '') + telemetry.delC.toFixed(2);
+  document.getElementById('stat-delC').style.color = telemetry.delC > 0 ? '#10b981' : '#ef4444';
+
+  // Effective population horizon H_pop calculation
+  const horizonYears = Math.max(1.5, 28 * (1 - 0.35 * telemetry.fastA - 0.25 * telemetry.fastB - 0.40 * telemetry.fastC));
+  const pillH = document.getElementById('pill-H');
+  pillH.textContent = horizonYears.toFixed(1) + (horizonYears > 16 ? ' yrs (SLHS)' : horizonYears > 7 ? ' yrs (Compressed)' : ' yrs (FLHS Triage)');
+  pillH.style.color = horizonYears > 16 ? '#10b981' : horizonYears > 7 ? '#f59e0b' : '#ef4444';
+
+  const pillFid = document.getElementById('pill-fid');
+  pillFid.textContent = telemetry.globalGameDefect ? 'Shared Triage (τ_fin Lock)' : 'Stationary Bandit (τ_inst)';
+  pillFid.style.color = telemetry.globalGameDefect ? '#ef4444' : '#10b981';
+
+  // Classify Macro Regime for Banner
+  const banner = document.getElementById('status-banner');
+  const title = document.getElementById('regime-title');
+  const sub = document.getElementById('regime-subtitle');
+
+  if (telemetry.fastC > 0.55) {
+    banner.style.borderLeftColor = '#ef4444';
+    title.textContent = 'PHASE III: THE HYSTERETIC CLIFF & MACRO-BASIN SNAP (N_0 → N_i)';
+    sub.textContent = 'Layer C saddle-node barrier breached (δ_C ≤ 0). High inertia m_C locks the core into fast-clock decoupling; lowering E(t) slightly will NOT restore compliance.';
+  } else if (telemetry.fastA > 0.45 && telemetry.fastB > 0.45 && telemetry.fastC < 0.35) {
+    banner.style.borderLeftColor = '#a855f7';
+    title.textContent = 'PHASE II: MULTIPLEX CHIMERA STATE (The Chimeric Institution, Ch. 12.2)';
+    sub.textContent = 'Orchid Vanguard (Layer A) and Elite Operators (Layer B) are phase-locked into fast cycles, while Dandelion Core (Layer C) remains pinned via Schema Mimicry & Inertia.';
+  } else if (telemetry.fastA > 0.45 && telemetry.fastC < 0.35) {
+    banner.style.borderLeftColor = '#38bdf8';
+    title.textContent = 'VANGUARD SIGNAL ONSET (τ_sig Contraction): O(√N) Noise → O(N) Coherent Signal';
+    sub.textContent = (params.topology === 'individualist')
+      ? 'Hub-and-Spoke Teramae–Tanaka Snap: Unbuffered Orchids phase-lock simultaneously via common noise without horizontal street rebellion.'
+      : 'Orchid vanguard has crossed SNIC threshold; distress is now propagating upward along K_CA kin backchannels toward Layer C.';
+  } else {
+    banner.style.borderLeftColor = '#10b981';
+    title.textContent = 'PHASE I / IV: HOMEODYNAMIC CONSOLIDATION (Safety-Pinned <Care> Basin)';
+    sub.textContent = 'GUTS safety pinning a_i(S) exceeds effective drive Ω_i. Scattered Orchid excursions cancel out as asynchronous background variance.';
+  }
+}
+
+// ============================================================================
+// UI INTERACTION & PRESETS
+// ============================================================================
+
+function updateParams() {
+  params.E = parseFloat(document.getElementById('sl-E').value);
+  params.S_inst = parseFloat(document.getElementById('sl-Sinst').value);
+  params.S_kin = parseFloat(document.getElementById('sl-Skin').value);
+  params.sigC = parseFloat(document.getElementById('sl-sigC').value);
+  params.FB = parseFloat(document.getElementById('sl-FB').value);
+  params.KCA = parseFloat(document.getElementById('sl-KCA').value);
+  params.mC = parseFloat(document.getElementById('sl-mC').value);
+  params.mimicry = document.getElementById('chk-mimicry').checked;
+  params.contrarian = document.getElementById('chk-contrarian').checked;
+
+  document.getElementById('val-E').textContent = params.E.toFixed(2);
+  document.getElementById('val-Sinst').textContent = params.S_inst.toFixed(2);
+  document.getElementById('val-Skin').textContent = params.S_kin.toFixed(2);
+  document.getElementById('val-sigC').textContent = params.sigC.toFixed(2);
+  document.getElementById('val-FB').textContent = params.FB.toFixed(2);
+  document.getElementById('val-KCA').textContent = params.KCA.toFixed(2);
+  document.getElementById('val-mC').textContent = params.mC.toFixed(2);
+}
+
+function setTopology(mode) {
+  params.topology = mode;
+  document.getElementById('topo-kin').classList.toggle('active', mode === 'kin');
+  document.getElementById('topo-ind').classList.toggle('active', mode === 'individualist');
+  const hint = document.getElementById('topo-hint');
+  if (mode === 'kin') {
+    hint.textContent = 'Kin co-regulation shields Orchids early, but transmits alarm upward to Dandelions once breached.';
+    document.getElementById('sl-Skin').value = 0.75;
+    document.getElementById('sl-KCA').value = 0.85;
+  } else {
+    hint.textContent = 'Hub-and-Spoke (Statsindividualism): S_kin ≈ 0, K_peer ≈ 0. Suppresses early street riots, but causes silent Teramae–Tanaka common-noise snap when Σ_care wobbles.';
+    document.getElementById('sl-Skin').value = 0.08;
+    document.getElementById('sl-KCA').value = 0.30;
+  }
+  updateParams();
+}
+
+function setSliders(cfg) {
+  if (cfg.topo) setTopology(cfg.topo);
+  document.getElementById('sl-E').value = cfg.E;
+  document.getElementById('sl-Sinst').value = cfg.S_inst;
+  document.getElementById('sl-Skin').value = cfg.S_kin;
+  document.getElementById('sl-sigC').value = cfg.sigC;
+  document.getElementById('sl-FB').value = cfg.FB;
+  document.getElementById('sl-KCA').value = cfg.KCA;
+  document.getElementById('sl-mC').value = cfg.mC;
+  document.getElementById('chk-mimicry').checked = !!cfg.mimicry;
+  document.getElementById('chk-contrarian').checked = !!cfg.contrarian;
+  updateParams();
+}
+
+function applyPreset(name) {
+  document.querySelectorAll('.preset-bar button').forEach(b => b.classList.remove('active-preset'));
+  const btn = document.getElementById('btn-' + name);
+  if (btn) btn.classList.add('active-preset');
+
+  if (name === 'phase1') {
+    setSliders({ topo: 'kin', E: 0.15, S_inst: 0.88, S_kin: 0.80, sigC: 0.15, FB: 0.18, KCA: 0.65, mC: 3.2, mimicry: false, contrarian: false });
+    // Calm velocities for clean Phase I start
+    ['A','B','C'].forEach(k => layers[k].forEach(u => { u.v *= 0.1; u.theta = (Math.random()-0.5)*0.4; }));
+  } else if (name === 'chimera') {
+    setSliders({ topo: 'kin', E: 0.68, S_inst: 0.42, S_kin: 0.30, sigC: 0.55, FB: 0.95, KCA: 0.55, mC: 3.8, mimicry: true, contrarian: false });
+    // Keep C pinned initially to show Chimera coexistence
+    layers.C.forEach(u => { u.v = 0; u.theta = 0.15; });
+  } else if (name === 'individualism') {
+    setSliders({ topo: 'individualist', E: 0.62, S_inst: 0.30, S_kin: 0.05, sigC: 0.95, FB: 0.78, KCA: 0.25, mC: 3.5, mimicry: true, contrarian: false });
+  } else if (name === 'cliff') {
+    setSliders({ topo: 'kin', E: 1.25, S_inst: 0.12, S_kin: 0.15, sigC: 0.75, FB: 1.20, KCA: 1.15, mC: 4.2, mimicry: false, contrarian: false });
+  } else if (name === 'phase4') {
+    // Demonstrate Reverse Demographic Hysteresis: high S_kin and S_inst in modular N_i re-pins Orchids first, then pulls C back
+    setSliders({ topo: 'kin', E: 0.08, S_inst: 0.92, S_kin: 0.95, sigC: 0.10, FB: 0.10, KCA: 0.80, mC: 2.2, mimicry: false, contrarian: false });
+  }
+}
+
+function injectShock() {
+  shockPulse = 0.85;
+}
+
+function clearHysteresisTrace() {
+  telemetry.hysteresisTrace = [];
+}
+
+// Main 60FPS Animation Loop
+function animate() {
+  stepPhysics();
+  drawRing('canvas-A', layers.A, { R: telemetry.RA, psi: telemetry.psiA }, '#38bdf8', telemetry.delA);
+  drawRing('canvas-B', layers.B, { R: telemetry.RB, psi: telemetry.psiB }, '#f59e0b', telemetry.globalGameDefect ? -0.5 : 0.6);
+  drawRing('canvas-C', layers.C, { R: telemetry.RC, psi: telemetry.psiC }, '#10b981', telemetry.delC);
+  drawTimeChart();
+  drawHysteresisChart();
+  updateReadouts();
+  requestAnimationFrame(animate);
+}
+
+updateParams();
+requestAnimationFrame(animate);
+</script>
+</body>
+</html>
