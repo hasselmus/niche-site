@@ -1,31 +1,95 @@
 {
-  "updated_utc": "2026-11-16T20:00:00Z",
+  "updated_utc": "2026-11-16T19:37:10.649Z",
   "proxies": {
-    "S_m_material": 0.640,
-    "S_a_claims": 0.760,
-    "S_b_biology": 0.720,
-    "S_c_capture": 0.680
+    "S_m_material": 0.646,
+    "S_a_claims": 0.765,
+    "S_b_biology": 0.719,
+    "S_c_capture": 0.685
   },
   "coupling": {
-    "kuramoto_coherence_Phi": 0.680,
-    "lag1_autocorr_rho1": 0.720
+    "kuramoto_coherence_Phi": 0.675,
+    "lag1_autocorr_rho1": 0.726
   },
   "hazard_model": {
     "distribution": "weibull",
     "shape_k": 1.85,
-    "separatrix_margin_delta": 0.380,
-    "median_years_to_snap": 7.40,
-    "prob_5yr_snap": 0.362
+    "separatrix_margin_delta": 0.3816258564405468,
+    "median_years_to_snap": 10.735991136662197,
+    "prob_5yr_snap": 0.15515467906124958
   },
-  "audit_note": "Initial Nov 2026 calibration: G7 debt-service/reinsurance ROL elevated (S_a=0.76), OECD TFR/youth housing compression locked (S_b=0.72), hyperscaler private baseload + CB gold accumulation active (S_c=0.68).",
+  "audit_note": "2026-11-16 update, model-conditioned indices (not independently calibrated global hazards). Sm +0.006: IEA 13 Nov reported Oct OECD stocks -47 Mb and on-land inventories at >=2016 lows; GIE AGSI+ gas-day 14 Nov EU storage 70.55% versus five-year 88.5%; EIA SPR week ending 6 Nov 279.535 Mb. Offsets: IEA global observed inventories +52 Mb in Oct and 10 Nov USDA/WASDE world wheat ending stocks +4.78 Mt. Sa +0.005: CBO 9 Nov FY2026 US deficit $1.992tn; California FAIR Plan Sept 2026 exposure $773bn (+11% y/y), against reported softening reinsurance ROL, so no acute pricing rupture is asserted. Sb -0.001: NAR 5 Nov median first-time buyer age 40; NY Fed 10 Nov Q3 loans delinquent 5.0% (+0.3pp q/q); offset South Korea August births +13.0% y/y (28 Oct release). Sc +0.005: WGC 3 Nov Q3 central bank gold net +321t (+42% y/y), September reported +61t (4 Nov); China rare-earth licensing mix includes suspended controls. Phi -0.005 as latest proxy signs diverge; rho1 +0.006 under slow SPR/on-land refilling; k=1.85 unchanged (no global physical Ds>Gs+Rs acceleration measured). Today's provisional history checkpoint replaced, not duplicated. Hazard outputs recomputed from specified equations; prior stored hazard fields were inconsistent. Sources: https://www.iea.org/reports/oil-market-report-november-2026 ; https://global-energy-flow.com/storage/ ; https://www.eia.gov/petroleum/supply/weekly/ ; https://www.graindecision.com/en/analyses/usda/wasde-report-november-2026 ; https://www.cbo.gov/publication/61986 ; https://www.cfpnet.com/key-statistics-data/ ; https://www.newyorkfed.org/newsevents/news/research/2026/20261110 ; https://www.nar.realtor/newsroom/first-time-home-buyer-share-inches-up-to-22-median-age-remains-at-record-high-of-40 ; https://mods.go.kr/boardDownload.es?bid=11749&list_no=447827&seq=1 ; https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-q3-2026 ; https://www.gold.org/goldhub/gold-focus/2026/11/central-bank-gold-statistics-september-2026",
   "history": [
-    { "date": "2026-09-28", "delta": 0.412, "Sm": 0.610, "Sa": 0.735, "Sb": 0.710, "Sc": 0.650, "prob5": 0.312 },
-    { "date": "2026-10-05", "delta": 0.406, "Sm": 0.615, "Sa": 0.740, "Sb": 0.712, "Sc": 0.658, "prob5": 0.324 },
-    { "date": "2026-10-12", "delta": 0.401, "Sm": 0.622, "Sa": 0.745, "Sb": 0.715, "Sc": 0.662, "prob5": 0.335 },
-    { "date": "2026-10-19", "delta": 0.395, "Sm": 0.628, "Sa": 0.750, "Sb": 0.716, "Sc": 0.668, "prob5": 0.348 },
-    { "date": "2026-10-26", "delta": 0.390, "Sm": 0.632, "Sa": 0.752, "Sb": 0.718, "Sc": 0.672, "prob5": 0.359 },
-    { "date": "2026-11-02", "delta": 0.386, "Sm": 0.635, "Sa": 0.755, "Sb": 0.719, "Sc": 0.675, "prob5": 0.368 },
-    { "date": "2026-11-09", "delta": 0.383, "Sm": 0.638, "Sa": 0.758, "Sb": 0.720, "Sc": 0.678, "prob5": 0.374 },
-    { "date": "2026-11-16", "delta": 0.380, "Sm": 0.640, "Sa": 0.760, "Sb": 0.720, "Sc": 0.680, "prob5": 0.379 }
+    {
+      "date": "2026-09-28",
+      "delta": 0.412,
+      "Sm": 0.61,
+      "Sa": 0.735,
+      "Sb": 0.71,
+      "Sc": 0.65,
+      "prob5": 0.312
+    },
+    {
+      "date": "2026-10-05",
+      "delta": 0.406,
+      "Sm": 0.615,
+      "Sa": 0.74,
+      "Sb": 0.712,
+      "Sc": 0.658,
+      "prob5": 0.324
+    },
+    {
+      "date": "2026-10-12",
+      "delta": 0.401,
+      "Sm": 0.622,
+      "Sa": 0.745,
+      "Sb": 0.715,
+      "Sc": 0.662,
+      "prob5": 0.335
+    },
+    {
+      "date": "2026-10-19",
+      "delta": 0.395,
+      "Sm": 0.628,
+      "Sa": 0.75,
+      "Sb": 0.716,
+      "Sc": 0.668,
+      "prob5": 0.348
+    },
+    {
+      "date": "2026-10-26",
+      "delta": 0.39,
+      "Sm": 0.632,
+      "Sa": 0.752,
+      "Sb": 0.718,
+      "Sc": 0.672,
+      "prob5": 0.359
+    },
+    {
+      "date": "2026-11-02",
+      "delta": 0.386,
+      "Sm": 0.635,
+      "Sa": 0.755,
+      "Sb": 0.719,
+      "Sc": 0.675,
+      "prob5": 0.368
+    },
+    {
+      "date": "2026-11-09",
+      "delta": 0.383,
+      "Sm": 0.638,
+      "Sa": 0.758,
+      "Sb": 0.72,
+      "Sc": 0.678,
+      "prob5": 0.374
+    },
+    {
+      "date": "2026-11-16",
+      "delta": 0.3816258564405468,
+      "Sm": 0.646,
+      "Sa": 0.765,
+      "Sb": 0.719,
+      "Sc": 0.685,
+      "prob5": 0.15515467906124958
+    }
   ]
 }
