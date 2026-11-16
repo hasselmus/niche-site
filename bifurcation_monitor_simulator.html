@@ -41,6 +41,17 @@
   }
   .title-group h1 { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: 0.3px; }
   .title-group p { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .fetch-status {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+    background: #161f30;
+    border: 1px solid #24324a;
+    color: #38bdf8;
+  }
   .preset-group { display: flex; gap: 6px; flex-wrap: wrap; }
   button {
     background: #1e293b;
@@ -55,6 +66,13 @@
   }
   button:hover { background: #334155; }
   button.active { background: #1d4ed8; border-color: #3b82f6; color: #fff; }
+  button.live-btn {
+    background: #064e3b;
+    border-color: #10b981;
+    color: #a7f3d0;
+  }
+  button.live-btn:hover { background: #047857; color: #fff; }
+  button.live-btn.active { background: #059669; border-color: #34d399; color: #fff; }
 
   .top-kpis {
     display: grid;
@@ -199,7 +217,7 @@
   @media (max-width: 900px) { .bottom-row { grid-template-columns: 1fr; } }
   textarea {
     width: 100%;
-    height: 145px;
+    height: 155px;
     background: #070a0f;
     color: #38bdf8;
     border: 1px solid #1c2638;
@@ -219,62 +237,31 @@
     padding: 10px;
     line-height: 1.55;
   }
+  .audit-note {
+    margin-top: 6px;
+    font-size: 11px;
+    color: #94a3b8;
+    font-style: italic;
+  }
 </style>
 </head>
 <body>
-<nav aria-label="Site navigation" style="position:relative;z-index:100;background:#0c111d;border-bottom:1px solid #334155;padding:.55rem 1rem;margin:0 0 12px;font:14px/1.5 system-ui,-apple-system,sans-serif">
-  <div style="max-width:1800px;margin:0 auto;display:flex;align-items:baseline;flex-wrap:wrap;gap:1.3rem">
-    <a href="index.html" style="color:#cbd5e1;text-decoration:underline">Introduction</a>
-    <a href="framework.html" style="color:#cbd5e1;text-decoration:underline">Main Framework</a>
-    <details style="position:relative;color:#cbd5e1">
-      <summary style="cursor:pointer;color:#cbd5e1">Intro docs</summary>
-      <div style="position:absolute;top:calc(100% + .4rem);left:0;z-index:100;min-width:18rem;max-width:90vw;background:#111827;border:1px solid #475569;padding:.55rem .8rem;display:flex;flex-direction:column;gap:.3rem">
-        <a href="intro/framework.html" style="color:#e2e8f0;text-decoration:underline">Framework overview</a>
-        <a href="intro/culture.html" style="color:#e2e8f0;text-decoration:underline">Cultural Rehearsion, Pacification and Coordination</a>
-        <a href="intro/trust.html" style="color:#e2e8f0;text-decoration:underline">Trust Sensors</a>
-        <a href="intro/faith.html" style="color:#e2e8f0;text-decoration:underline">Shared Faiths</a>
-        <a href="intro/narratives.html" style="color:#e2e8f0;text-decoration:underline">Narratives (vs Strategies)</a>
-        <a href="intro/counter-population-coercion.html" style="color:#e2e8f0;text-decoration:underline">Counter-Population Coercion</a>
-      </div>
-    </details>
-    <details style="position:relative;color:#cbd5e1"><summary style="cursor:pointer;color:#cbd5e1">Companions</summary><div style="position:absolute;z-index:100;top:calc(100% + .4rem);left:0;min-width:13rem;max-width:90vw;max-height:70vh;overflow-y:auto;display:flex;flex-direction:column;gap:.3rem;background:#111827;border:1px solid #475569;padding:.55rem .8rem"><a href="companions/overview.html" style="color:#e2e8f0;text-decoration:underline;white-space:normal">Overview</a>
-        <a href="companions/vertical-evolution.html" style="color:#e2e8f0;text-decoration:underline;white-space:normal">Vertical Evolution</a>
-        <a href="companions/cultural-mapping.html" style="color:#e2e8f0;text-decoration:underline;white-space:normal">Cultural Mapping</a>
-        <a href="companions/faith-mapping.html" style="color:#e2e8f0;text-decoration:underline;white-space:normal">Faith Mapping</a>
-        <a href="companions/narrative-mapping.html" style="color:#e2e8f0;text-decoration:underline;white-space:normal">Narrative Mapping</a>
-        <a href="companions/social-trust-sensor.html" style="color:#e2e8f0;text-decoration:underline;white-space:normal">Social Trust Sensor</a>
-        <a href="companions/phase-synchronisation.html" style="color:#e2e8f0;text-decoration:underline;white-space:normal">Phase Synchronisation</a>
-        <a href="companions/total-war.html" style="color:#e2e8f0;text-decoration:underline;white-space:normal">Total War</a></div></details>
-  <a href="variables.html" style="color:#cbd5e1;text-decoration:underline">Variables</a>
-    <a href="glossary.html" style="color:#cbd5e1;text-decoration:underline">Terms</a>
-    <details style="position:relative;color:#cbd5e1">
-      <summary style="cursor:pointer;color:#cbd5e1">Hypotheses</summary>
-      <div style="position:absolute;top:calc(100% + .4rem);left:0;z-index:100;min-width:9rem;background:#111827;border:1px solid #475569;padding:.55rem .8rem;display:flex;flex-direction:column;gap:.3rem">
-        <a href="hypotheses/audit.html" style="color:#e2e8f0;text-decoration:underline">Audit</a>
-        <a href="hypotheses/trust.html" style="color:#e2e8f0;text-decoration:underline">Trust</a>
-      </div>
-    </details>
-    <details style="position:relative;color:#cbd5e1">
-      <summary style="cursor:pointer;color:#ffffff;font-weight:600">Simulator</summary>
-      <div style="position:absolute;top:calc(100% + .4rem);left:0;z-index:100;min-width:13rem;max-width:90vw;background:#111827;border:1px solid #475569;padding:.55rem .8rem;display:flex;flex-direction:column;gap:.4rem">
-        <a href="dst_nct_coupled_state_space_simulator.html" style="color:#e2e8f0;text-decoration:underline">Framework simulator</a>
-        <a href="phase_sync_simulator.html" style="color:#ffffff;font-weight:600;text-decoration:none">Phase simulator</a>
-        <a href="bifurcation_monitor_simulator.html" aria-current="page" style="color:#ffffff;font-weight:600;text-decoration:none">Bifurcation monitor</a>
-      </div>
-    </details>
-  </div>
-</nav>
+
 <div class="container">
   <header>
     <div class="title-group">
-      <h1>DST–NCT Global Basin Strain & Separatrix Hazard Monitor (N₀ → Σ → Nᵢ)</h1>
+      <h1>
+        DST–NCT Global Basin Strain & Separatrix Hazard Monitor (N₀ → Σ → Nᵢ)
+        <span class="fetch-status" id="fetch-status">Source: Built-In Baseline</span>
+      </h1>
       <p>Real-Time Public-Data Proxy Engine | Non-Averaging 4-Layer State Radar & Weibull / Lomax Escape-Time Distribution</p>
     </div>
     <div class="preset-group">
       <button onclick="loadPreset('1995')" id="btn-1995">1995: Post-Cold War Expansion</button>
       <button onclick="loadPreset('2008')" id="btn-2008">2008: GFC Claims Shock</button>
-      <button onclick="loadPreset('2026')" id="btn-2026" class="active">Nov 2026: Live Telemetry Baseline</button>
+      <button onclick="loadPreset('2026')" id="btn-2026" class="active">Nov 2026: Static Baseline</button>
       <button onclick="loadPreset('2032')" id="btn-2032">Projected: Phase-Locked Cliff (Σ)</button>
+      <button onclick="fetchLiveTelemetry(true)" id="btn-live" class="live-btn">⚡ Pull Live telemetry.json</button>
     </div>
   </header>
 
@@ -397,7 +384,7 @@
         <div class="card">
           <div class="card-head">
             <h3>1. 4-Layer State-Space Strain Radar</h3>
-            <span id="radar-stat">Geometric Mean S̄: 0.70</span>
+            <span id="radar-stat">Hybrid Strain S̄: 0.70</span>
           </div>
           <canvas id="canvas-radar" width="380" height="300"></canvas>
         </div>
@@ -422,471 +409,4 @@
           <div class="compass-left" id="bar-capture" style="width: 50%;">Nᵢ,capture (50%)</div>
           <div class="compass-right" id="bar-exit">Nᵢ,exit (50%)</div>
         </div>
-        <div class="compass-labels">
-          <span>◄ <strong>Centripetal Enclave Capture (S_c · S_a):</strong> Fortified corporate grids, private PPAs, Neo-Bruk/sovereign hoarding</span>
-          <span><strong>Centrifugal Biological Exit (S_b · S_m):</strong> Household re-familialisation, TFR veto, informal local subsistence ►</span>
-        </div>
-      </div>
-
-      <!-- BOTTOM ROW: LIVE JSON FEED & EQUATION AUDIT -->
-      <div class="bottom-row">
-        <div class="card">
-          <div class="card-head">
-            <h3>Live Webpage JSON Telemetry Payload (Editable)</h3>
-            <button onclick="applyJsonPayload()" style="padding:3px 8px; font-size:11px;">Apply JSON</button>
-          </div>
-          <textarea id="json-box" spellcheck="false"></textarea>
-        </div>
-
-        <div class="card">
-          <div class="card-head">
-            <h3>Mathematical Specification (Chapter 14 Compliant)</h3>
-            <span>Zero Domain Flattening</span>
-          </div>
-          <div class="formula-sheet">
-            <strong>1. Hybrid Strain (Geometric Mean + Bottleneck Floor):</strong><br>
-            S̄(t) = 0.65·(S_m·S_a·S_b·S_c)^(1/4) + 0.35·max(S_m, S_a, S_b, S_c)<br>
-            <strong>2. Separatrix Distance Margin δ_Σ(t) ∈ (0, 1]:</strong><br>
-            δ_Σ(t) = 1 − S̄(t) · [0.55 + 0.45 · Φ(t)]<br>
-            <strong>3. Critical Slowing Down Stress Parameter Λ(t):</strong><br>
-            Λ(t) = (1 − δ_Σ(t)) / [ δ_Σ(t) · (1 − 0.65 · ρ₁(t)) ]<br>
-            <strong>4. Weibull / Burr-Lomax Cumulative Escape Probability:</strong><br>
-            λ(t) = λ₀ · exp(−β · Λ(t)) &nbsp;|&nbsp; P(τ ≤ Δt) = 1 − exp(−(Δt / λ(t))^k)
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-const state = {
-  timestamp: "2026-11-16T19:30:00Z",
-  Sm: 0.64,
-  Sa: 0.76,
-  Sb: 0.72,
-  Sc: 0.68,
-  Phi: 0.68,
-  rho: 0.72,
-  dist: "weibull",
-  k: 1.85
-};
-
-const presets = {
-  '1995': { Sm: 0.24, Sa: 0.22, Sb: 0.28, Sc: 0.18, Phi: 0.20, rho: 0.30, k: 1.50 },
-  '2008': { Sm: 0.48, Sa: 0.88, Sb: 0.42, Sc: 0.45, Phi: 0.52, rho: 0.62, k: 1.70 },
-  '2026': { Sm: 0.64, Sa: 0.76, Sb: 0.72, Sc: 0.68, Phi: 0.68, rho: 0.72, k: 1.85 },
-  '2032': { Sm: 0.86, Sa: 0.92, Sb: 0.88, Sc: 0.90, Phi: 0.89, rho: 0.88, k: 2.15 }
-};
-
-function computeModel(s) {
-  const geom = Math.pow(s.Sm * s.Sa * s.Sb * s.Sc, 0.25);
-  const maxS = Math.max(s.Sm, s.Sa, s.Sb, s.Sc);
-  // Hybrid strain combines geometric balance with non-substitutable Liebig bottleneck
-  const S_bar = 0.65 * geom + 0.35 * maxS;
-
-  // Separatrix distance margin delta_Sigma
-  const syncFactor = 0.55 + 0.45 * s.Phi;
-  const delta = Math.max(0.03, Math.min(0.98, 1.0 - S_bar * syncFactor));
-
-  // Effective stress parameter Lambda amplified by lag-1 autocorrelation rho_1
-  const csdDenom = Math.max(0.15, 1.0 - 0.65 * s.rho);
-  const Lambda = (1.0 - delta) / (delta * csdDenom);
-
-  // Characteristic scale parameter lambda(t) in years (base horizon 42 years at zero stress)
-  const lambda0 = 42.0;
-  const beta = 0.38;
-  const lambda = Math.max(0.8, lambda0 * Math.exp(-beta * Lambda));
-
-  // Uncertainty band scale parameters (10th and 90th percentile envelopes)
-  const spread = 0.32 + 0.25 * (1 - s.Phi);
-  const lambdaLow = Math.max(0.5, lambda * Math.exp(-spread));
-  const lambdaHigh = lambda * Math.exp(spread);
-
-  function cdf(t, scale) {
-    if (t <= 0) return 0;
-    if (s.dist === 'weibull') {
-      return 1.0 - Math.exp(-Math.pow(t / scale, s.k));
-    } else {
-      // Burr Type XII / Generalized Lomax heavy power-law tail
-      const alpha = 2.2;
-      return 1.0 - Math.pow(1.0 + Math.pow(t / scale, s.k), -alpha);
-    }
-  }
-
-  function pdf(t, scale) {
-    if (t <= 0.05) return 0;
-    const dt = 0.05;
-    return (cdf(t + dt, scale) - cdf(t - dt, scale)) / (2 * dt);
-  }
-
-  function quantile(p, scale) {
-    if (s.dist === 'weibull') {
-      return scale * Math.pow(-Math.log(1.0 - p), 1.0 / s.k);
-    } else {
-      const alpha = 2.2;
-      return scale * Math.pow(Math.pow(1.0 - p, -1.0 / alpha) - 1.0, 1.0 / s.k);
-    }
-  }
-
-  return {
-    geom, maxS, S_bar, delta, Lambda, lambda, lambdaLow, lambdaHigh,
-    median: quantile(0.5, lambda),
-    ci10: quantile(0.5, lambdaLow),
-    ci90: quantile(0.5, lambdaHigh),
-    prob5: cdf(5.0, lambda),
-    prob10: cdf(10.0, lambda),
-    cdf, pdf
-  };
-}
-
-function drawRadar(m) {
-  const canvas = document.getElementById('canvas-radar');
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width, h = canvas.height;
-  const cx = w / 2, cy = h / 2;
-  const R = 108;
-
-  ctx.clearRect(0, 0, w, h);
-
-  // Concentric reference rings (0.25, 0.50, 0.75, 1.00 Separatrix)
-  const levels = [0.25, 0.5, 0.75, 1.0];
-  levels.forEach(lv => {
-    ctx.beginPath();
-    ctx.arc(cx, cy, R * lv, 0, 2 * Math.PI);
-    ctx.strokeStyle = (lv === 1.0) ? 'rgba(239, 68, 68, 0.6)' : '#1e293b';
-    ctx.lineWidth = (lv === 1.0) ? 2 : 1;
-    if (lv === 0.75) ctx.setLineDash([3, 3]);
-    else ctx.setLineDash([]);
-    ctx.stroke();
-  });
-  ctx.setLineDash([]);
-
-  // Axes: Top (Sm), Right (Sa), Bottom (Sb), Left (Sc)
-  const axes = [
-    { angle: -Math.PI / 2, val: state.Sm, label: 'S_m (Material)', col: '#f59e0b' },
-    { angle: 0,            val: state.Sa, label: 'S_a (Claims)',   col: '#ef4444' },
-    { angle: Math.PI / 2,  val: state.Sb, label: 'S_b (Biology)',  col: '#38bdf8' },
-    { angle: Math.PI,      val: state.Sc, label: 'S_c (Capture)',  col: '#a855f7' }
-  ];
-
-  axes.forEach(ax => {
-    const x = cx + R * Math.cos(ax.angle);
-    const y = cy + R * Math.sin(ax.angle);
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(x, y);
-    ctx.strokeStyle = '#24324a';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  });
-
-  // Draw Strain Polygon
-  ctx.beginPath();
-  axes.forEach((ax, idx) => {
-    const px = cx + R * ax.val * Math.cos(ax.angle);
-    const py = cy + R * ax.val * Math.sin(ax.angle);
-    if (idx === 0) ctx.moveTo(px, py);
-    else ctx.lineTo(px, py);
-  });
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(239, 68, 68, 0.22)';
-  ctx.fill();
-  ctx.strokeStyle = '#f87171';
-  ctx.lineWidth = 2.5;
-  ctx.stroke();
-
-  // Draw Vertex Nodes & Labels
-  axes.forEach(ax => {
-    const px = cx + R * ax.val * Math.cos(ax.angle);
-    const py = cy + R * ax.val * Math.sin(ax.angle);
-    ctx.beginPath();
-    ctx.arc(px, py, 5, 0, 2 * Math.PI);
-    ctx.fillStyle = ax.col;
-    ctx.fill();
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Label positioning
-    const lx = cx + (R + 28) * Math.cos(ax.angle);
-    const ly = cy + (R + 20) * Math.sin(ax.angle);
-    ctx.fillStyle = ax.col;
-    ctx.font = 'bold 11px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(`${ax.label}: ${ax.val.toFixed(2)}`, lx, ly);
-  });
-}
-
-function drawHazardChart(m) {
-  const canvas = document.getElementById('canvas-hazard');
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width, h = canvas.height;
-  ctx.clearRect(0, 0, w, h);
-
-  const padL = 42, padR = 20, padT = 18, padB = 30;
-  const pw = w - padL - padR;
-  const ph = h - padT - padB;
-  const maxT = 20.0; // 20-year horizon
-
-  // Grid & Axes
-  ctx.strokeStyle = '#1e293b';
-  ctx.lineWidth = 1;
-  for (let p = 0.25; p <= 1.0; p += 0.25) {
-    const y = padT + ph * (1 - p);
-    ctx.beginPath();
-    ctx.moveTo(padL, y);
-    ctx.lineTo(w - padR, y);
-    ctx.stroke();
-    ctx.fillStyle = '#8b9bb4';
-    ctx.font = '10px monospace';
-    ctx.textAlign = 'right';
-    ctx.fillText((p * 100).toFixed(0) + '%', padL - 6, y + 3);
-  }
-
-  for (let t = 0; t <= 20; t += 5) {
-    const x = padL + (t / maxT) * pw;
-    ctx.beginPath();
-    ctx.moveTo(x, padT);
-    ctx.lineTo(x, h - padB);
-    ctx.stroke();
-    ctx.fillStyle = '#8b9bb4';
-    ctx.font = '10px monospace';
-    ctx.textAlign = 'center';
-    ctx.fillText('+' + t + 'y', x, h - padB + 15);
-  }
-
-  // 1. Shaded 80% Confidence Fan Band (between lambdaLow and lambdaHigh CDF)
-  ctx.beginPath();
-  const steps = 100;
-  for (let i = 0; i <= steps; i++) {
-    const t = (i / steps) * maxT;
-    const x = padL + (t / maxT) * pw;
-    const y = padT + ph * (1 - m.cdf(t, m.lambdaLow));
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
-  for (let i = steps; i >= 0; i--) {
-    const t = (i / steps) * maxT;
-    const x = padL + (t / maxT) * pw;
-    const y = padT + ph * (1 - m.cdf(t, m.lambdaHigh));
-    ctx.lineTo(x, y);
-  }
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(56, 189, 248, 0.16)';
-  ctx.fill();
-
-  // 2. Plot Instantaneous Escape Density PDF f(t) (scaled for visibility)
-  ctx.beginPath();
-  for (let i = 1; i <= steps; i++) {
-    const t = (i / steps) * maxT;
-    const x = padL + (t / maxT) * pw;
-    const density = Math.min(1.0, m.pdf(t, m.lambda) * 3.5);
-    const y = padT + ph * (1 - density);
-    if (i === 1) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
-  ctx.strokeStyle = 'rgba(245, 158, 11, 0.75)';
-  ctx.lineWidth = 1.8;
-  ctx.setLineDash([4, 3]);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // 3. Central Cumulative Hazard Curve P(tau_snap <= t)
-  ctx.beginPath();
-  for (let i = 0; i <= steps; i++) {
-    const t = (i / steps) * maxT;
-    const x = padL + (t / maxT) * pw;
-    const y = padT + ph * (1 - m.cdf(t, m.lambda));
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
-  ctx.strokeStyle = '#38bdf8';
-  ctx.lineWidth = 2.8;
-  ctx.stroke();
-
-  // 4. Median Time-to-Snap Marker (P = 0.50)
-  if (m.median <= maxT) {
-    const mx = padL + (m.median / maxT) * pw;
-    const my = padT + ph * 0.5;
-    ctx.beginPath();
-    ctx.moveTo(mx, padT);
-    ctx.lineTo(mx, h - padB);
-    ctx.strokeStyle = '#ef4444';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(mx, my, 5, 0, 2 * Math.PI);
-    ctx.fillStyle = '#ef4444';
-    ctx.fill();
-
-    ctx.fillStyle = '#fff';
-    ctx.font = 'bold 11px sans-serif';
-    ctx.textAlign = (m.median > 14) ? 'right' : 'left';
-    ctx.fillText(`Median τ_50: ${m.median.toFixed(1)}y`, mx + (m.median > 14 ? -8 : 8), my - 8);
-  }
-
-  // Legend inside canvas
-  ctx.textAlign = 'left';
-  ctx.font = '11px sans-serif';
-  ctx.fillStyle = '#38bdf8';
-  ctx.fillText('━━ Cumulative Hazard CDF P(τ ≤ Δt)', padL + 10, padT + 14);
-  ctx.fillStyle = '#f59e0b';
-  ctx.fillText('╌╌ Escape Density Wave f(Δt) (scaled)', padL + 10, padT + 30);
-}
-
-function updateUI() {
-  const m = computeModel(state);
-
-  // Update Slider Readouts
-  document.getElementById('val-Sm').textContent = state.Sm.toFixed(2);
-  document.getElementById('val-Sa').textContent = state.Sa.toFixed(2);
-  document.getElementById('val-Sb').textContent = state.Sb.toFixed(2);
-  document.getElementById('val-Sc').textContent = state.Sc.toFixed(2);
-  document.getElementById('val-Phi').textContent = state.Phi.toFixed(2);
-  document.getElementById('val-rho').textContent = state.rho.toFixed(2);
-  document.getElementById('val-k').textContent = state.k.toFixed(2);
-
-  // Update Top KPIs
-  const elDelta = document.getElementById('kpi-delta');
-  elDelta.textContent = m.delta.toFixed(2);
-  elDelta.style.color = m.delta > 0.55 ? '#10b981' : (m.delta > 0.28 ? '#f59e0b' : '#ef4444');
-
-  document.getElementById('kpi-median').textContent = (m.median > 50 ? '>50' : m.median.toFixed(1)) + ' yrs';
-  document.getElementById('kpi-ci').textContent = `80% Band: [${m.ci10.toFixed(1)} – ${m.ci90 > 60 ? '>60' : m.ci90.toFixed(1)} yrs]`;
-
-  const elP5 = document.getElementById('kpi-prob5');
-  elP5.textContent = (m.prob5 * 100).toFixed(1) + '%';
-  elP5.style.color = m.prob5 < 0.15 ? '#10b981' : (m.prob5 < 0.45 ? '#f59e0b' : '#ef4444');
-  document.getElementById('kpi-prob10').textContent = `10-Year Cumulative Hazard: ${(m.prob10 * 100).toFixed(1)}%`;
-
-  // Regime Diagnosis
-  const elReg = document.getElementById('kpi-regime');
-  const elRegSub = document.getElementById('kpi-regime-sub');
-  if (m.delta < 0.25) {
-    elReg.textContent = 'SEPARATRIX SNAP (Σ)';
-    elReg.style.color = '#ef4444';
-    elRegSub.textContent = 'O(N) Kuramoto phase-lock across all 4 layers';
-  } else if (state.Sa > 0.65 && state.Sm < 0.55) {
-    elReg.textContent = 'CLAIMS EXCURSION (τ_fin)';
-    elReg.style.color = '#f59e0b';
-    elRegSub.textContent = 'Fast-clock financial stress; substrate buffered';
-  } else if (m.delta < 0.48) {
-    elReg.textContent = 'CHIMERIC HOLLOWING';
-    elReg.style.color = '#a855f7';
-    elRegSub.textContent = 'Polite surface compliance; active enclave & TFR triage';
-  } else {
-    elReg.textContent = 'HOMEODYNAMIC N₀ BASIN';
-    elReg.style.color = '#10b981';
-    elRegSub.textContent = 'T_cover > T_recur; asynchronous O(√N) noise';
-  }
-
-  document.getElementById('radar-stat').textContent = `Hybrid Strain S̄: ${m.S_bar.toFixed(2)} | Sync Φ: ${state.Phi.toFixed(2)}`;
-  document.getElementById('hazard-stat').textContent = `Stress Λ: ${m.Lambda.toFixed(2)} | Scale λ: ${m.lambda.toFixed(1)}y`;
-
-  // Update Compass Bar (Centripetal Capture vs Centrifugal Exit)
-  const capScore = state.Sc * (0.5 + 0.5 * state.Sa);
-  const exitScore = state.Sb * (0.5 + 0.5 * state.Sm);
-  const capShare = Math.round((capScore / (capScore + exitScore + 1e-6)) * 100);
-  const exitShare = 100 - capShare;
-
-  document.getElementById('bar-capture').style.width = capShare + '%';
-  document.getElementById('bar-capture').textContent = `Nᵢ,capture (${capShare}%)`;
-  document.getElementById('bar-exit').textContent = `Nᵢ,exit (${exitShare}%)`;
-
-  const compText = document.getElementById('compass-ratio');
-  if (capShare > 56) compText.textContent = 'Dominant Nucleation: Fortified Corporate/State Enclaves (Nᵢ,capture)';
-  else if (exitShare > 56) compText.textContent = 'Dominant Nucleation: Centrifugal Demographic & Local Exit (Nᵢ,exit)';
-  else compText.textContent = 'Dominant Nucleation: Dual-Track Chimeric Split (Enclaves + Exit)';
-
-  // Update JSON Box
-  document.getElementById('json-box').value = JSON.stringify({
-    updated_utc: state.timestamp,
-    proxies: {
-      S_m_material: Number(state.Sm.toFixed(3)),
-      S_a_claims: Number(state.Sa.toFixed(3)),
-      S_b_biology: Number(state.Sb.toFixed(3)),
-      S_c_capture: Number(state.Sc.toFixed(3))
-    },
-    coupling: {
-      kuramoto_coherence_Phi: Number(state.Phi.toFixed(3)),
-      lag1_autocorr_rho1: Number(state.rho.toFixed(3))
-    },
-    hazard_model: {
-      distribution: state.dist,
-      shape_k: Number(state.k.toFixed(2)),
-      separatrix_margin_delta: Number(m.delta.toFixed(3)),
-      median_years_to_snap: Number(m.median.toFixed(2)),
-      prob_5yr_snap: Number(m.prob5.toFixed(3))
-    }
-  }, null, 2);
-
-  drawRadar(m);
-  drawHazardChart(m);
-}
-
-function syncFromSliders() {
-  state.Sm = parseFloat(document.getElementById('sl-Sm').value);
-  state.Sa = parseFloat(document.getElementById('sl-Sa').value);
-  state.Sb = parseFloat(document.getElementById('sl-Sb').value);
-  state.Sc = parseFloat(document.getElementById('sl-Sc').value);
-  state.Phi = parseFloat(document.getElementById('sl-Phi').value);
-  state.rho = parseFloat(document.getElementById('sl-rho').value);
-  state.dist = document.getElementById('sel-dist').value;
-  state.k = parseFloat(document.getElementById('sl-k').value);
-  updateUI();
-}
-
-function loadPreset(key) {
-  document.querySelectorAll('.preset-group button').forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById('btn-' + key);
-  if (btn) btn.classList.add('active');
-
-  const p = presets[key];
-  document.getElementById('sl-Sm').value = p.Sm;
-  document.getElementById('sl-Sa').value = p.Sa;
-  document.getElementById('sl-Sb').value = p.Sb;
-  document.getElementById('sl-Sc').value = p.Sc;
-  document.getElementById('sl-Phi').value = p.Phi;
-  document.getElementById('sl-rho').value = p.rho;
-  document.getElementById('sl-k').value = p.k;
-  syncFromSliders();
-}
-
-function applyJsonPayload() {
-  try {
-    const parsed = JSON.parse(document.getElementById('json-box').value);
-    if (parsed.proxies) {
-      document.getElementById('sl-Sm').value = parsed.proxies.S_m_material ?? state.Sm;
-      document.getElementById('sl-Sa').value = parsed.proxies.S_a_claims ?? state.Sa;
-      document.getElementById('sl-Sb').value = parsed.proxies.S_b_biology ?? state.Sb;
-      document.getElementById('sl-Sc').value = parsed.proxies.S_c_capture ?? state.Sc;
-    }
-    if (parsed.coupling) {
-      document.getElementById('sl-Phi').value = parsed.coupling.kuramoto_coherence_Phi ?? state.Phi;
-      document.getElementById('sl-rho').value = parsed.coupling.lag1_autocorr_rho1 ?? state.rho;
-    }
-    if (parsed.hazard_model) {
-      if (parsed.hazard_model.distribution) document.getElementById('sel-dist').value = parsed.hazard_model.distribution;
-      if (parsed.hazard_model.shape_k) document.getElementById('sl-k').value = parsed.hazard_model.shape_k;
-    }
-    syncFromSliders();
-  } catch (e) {
-    alert("Invalid JSON format in payload box.");
-  }
-}
-
-updateUI();
-</script>
-<footer aria-label="Copyright and reuse" style="margin:1.5rem 12px 0;padding:1rem 0;border-top:1px solid #334155;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.35rem 1rem;font:12px/1.5 system-ui,-apple-system,sans-serif;color:#94a3b8">
-  <span>© 2026 Henrik Hagnell. All rights reserved.</span>
-  <a href="copyright.html" style="color:#cbd5e1;text-decoration:underline">Copyright and reuse</a>
-</footer>
-<script data-goatcounter="https://hasselmus.goatcounter.com/count"
-        async src="https://gc.zgo.at/count.v5.js"
-        crossorigin="anonymous"
-        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
-</body>
-</html>
+        <div class="compass-
