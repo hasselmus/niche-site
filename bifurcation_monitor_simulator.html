@@ -149,6 +149,8 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 6px;
   }
   .card-head h3 { font-size: 13px; font-weight: 600; color: #fff; }
   .card-head span { font-size: 11px; color: var(--muted); font-family: monospace; }
@@ -386,7 +388,7 @@
             <h3>1. 4-Layer State-Space Strain Radar</h3>
             <span id="radar-stat">Hybrid Strain S̄: 0.70</span>
           </div>
-          <canvas id="canvas-radar" width="380" height="300"></canvas>
+          <canvas id="canvas-radar" width="380" height="275"></canvas>
         </div>
 
         <!-- PANEL 2: WEIBULL / LOMAX FAN CHART -->
@@ -395,7 +397,7 @@
             <h3>2. Forward Separatrix Hazard Curve P(τ_snap ≤ Δt) & PDF Density</h3>
             <span id="hazard-stat">Effective Stress Λ: 4.54</span>
           </div>
-          <canvas id="canvas-hazard" width="520" height="300"></canvas>
+          <canvas id="canvas-hazard" width="520" height="275"></canvas>
         </div>
       </div>
 
@@ -409,4 +411,633 @@
           <div class="compass-left" id="bar-capture" style="width: 50%;">Nᵢ,capture (50%)</div>
           <div class="compass-right" id="bar-exit">Nᵢ,exit (50%)</div>
         </div>
-        <div class="compass-
+        <div class="compass-labels">
+          <span>◄ <strong>Centripetal Enclave Capture (S_c · S_a):</strong> Fortified corporate grids, private PPAs, Neo-Bruk/sovereign hoarding</span>
+          <span><strong>Centrifugal Biological Exit (S_b · S_m):</strong> Household re-familialisation, TFR veto, informal local subsistence ►</span>
+        </div>
+      </div>
+
+      <!-- PANEL 4: ROLLING HISTORICAL SPARKLINE -->
+      <div class="card">
+        <div class="card-head">
+          <h3>4. Historical Telemetry Drift: Separatrix Distance Margin δ_Σ(t) & 4-Layer Strain Trajectory</h3>
+          <span id="history-stat">8 Weekly Checkpoints Loaded | Red Zone (&lt;0.20) = Separatrix Breach</span>
+        </div>
+        <canvas id="canvas-history" width="920" height="145"></canvas>
+      </div>
+
+      <!-- BOTTOM ROW: LIVE JSON FEED & EQUATION AUDIT -->
+      <div class="bottom-row">
+        <div class="card">
+          <div class="card-head">
+            <h3>Live Webpage JSON Telemetry Payload (telemetry.json)</h3>
+            <div style="display:flex; gap:6px;">
+              <button onclick="fetchLiveTelemetry(true)" style="padding:3px 8px; font-size:11px;">Reload telemetry.json</button>
+              <button onclick="applyJsonPayload()" style="padding:3px 8px; font-size:11px;">Apply Edits</button>
+            </div>
+          </div>
+          <textarea id="json-box" spellcheck="false"></textarea>
+          <div class="audit-note" id="audit-note">Latest telemetry note: Static baseline loaded. Click "⚡ Pull Live telemetry.json" to fetch server state.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>Mathematical Specification (Chapter 14 Compliant)</h3>
+            <span>Zero Domain Flattening</span>
+          </div>
+          <div class="formula-sheet">
+            <strong>1. Hybrid Strain (Geometric Mean + Bottleneck Floor):</strong><br>
+            S̄(t) = 0.65·(S_m·S_a·S_b·S_c)^(1/4) + 0.35·max(S_m, S_a, S_b, S_c)<br>
+            <strong>2. Separatrix Distance Margin δ_Σ(t) ∈ (0, 1]:</strong><br>
+            δ_Σ(t) = 1 − S̄(t) · [0.55 + 0.45 · Φ(t)]<br>
+            <strong>3. Critical Slowing Down Stress Parameter Λ(t):</strong><br>
+            Λ(t) = (1 − δ_Σ(t)) / [ δ_Σ(t) · (1 − 0.65 · ρ₁(t)) ]<br>
+            <strong>4. Weibull / Burr-Lomax Cumulative Escape Probability:</strong><br>
+            λ(t) = λ₀ · exp(−β · Λ(t)) &nbsp;|&nbsp; P(τ ≤ Δt) = 1 − exp(−(Δt / λ(t))^k)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const defaultHistory = [
+  { date: "2026-09-28", delta: 0.412, Sm: 0.610, Sa: 0.735, Sb: 0.710, Sc: 0.650, prob5: 0.312 },
+  { date: "2026-10-05", delta: 0.406, Sm: 0.615, Sa: 0.740, Sb: 0.712, Sc: 0.658, prob5: 0.324 },
+  { date: "2026-10-12", delta: 0.401, Sm: 0.622, Sa: 0.745, Sb: 0.715, Sc: 0.662, prob5: 0.335 },
+  { date: "2026-10-19", delta: 0.395, Sm: 0.628, Sa: 0.750, Sb: 0.716, Sc: 0.668, prob5: 0.348 },
+  { date: "2026-10-26", delta: 0.390, Sm: 0.632, Sa: 0.752, Sb: 0.718, Sc: 0.672, prob5: 0.359 },
+  { date: "2026-11-02", delta: 0.386, Sm: 0.635, Sa: 0.755, Sb: 0.719, Sc: 0.675, prob5: 0.368 },
+  { date: "2026-11-09", delta: 0.383, Sm: 0.638, Sa: 0.758, Sb: 0.720, Sc: 0.678, prob5: 0.374 },
+  { date: "2026-11-16", delta: 0.380, Sm: 0.640, Sa: 0.760, Sb: 0.720, Sc: 0.680, prob5: 0.379 }
+];
+
+const state = {
+  timestamp: "2026-11-16T20:00:00Z",
+  Sm: 0.64,
+  Sa: 0.76,
+  Sb: 0.72,
+  Sc: 0.68,
+  Phi: 0.68,
+  rho: 0.72,
+  dist: "weibull",
+  k: 1.85,
+  driver_note: "Static Nov 2026 baseline.",
+  history: JSON.parse(JSON.stringify(defaultHistory))
+};
+
+const presets = {
+  '1995': { Sm: 0.24, Sa: 0.22, Sb: 0.28, Sc: 0.18, Phi: 0.20, rho: 0.30, k: 1.50, note: "1995 Post-Cold War Expansion preset." },
+  '2008': { Sm: 0.48, Sa: 0.88, Sb: 0.42, Sc: 0.45, Phi: 0.52, rho: 0.62, k: 1.70, note: "2008 GFC Fast-Clock Claims Excursion preset." },
+  '2026': { Sm: 0.64, Sa: 0.76, Sb: 0.72, Sc: 0.68, Phi: 0.68, rho: 0.72, k: 1.85, note: "Nov 2026 Built-In Baseline." },
+  '2032': { Sm: 0.86, Sa: 0.92, Sb: 0.88, Sc: 0.90, Phi: 0.89, rho: 0.88, k: 2.15, note: "Projected Phase-Locked Separatrix Cliff (Σ)." }
+};
+
+function computeModel(s) {
+  const geom = Math.pow(s.Sm * s.Sa * s.Sb * s.Sc, 0.25);
+  const maxS = Math.max(s.Sm, s.Sa, s.Sb, s.Sc);
+  const S_bar = 0.65 * geom + 0.35 * maxS;
+
+  const syncFactor = 0.55 + 0.45 * s.Phi;
+  const delta = Math.max(0.03, Math.min(0.98, 1.0 - S_bar * syncFactor));
+
+  const csdDenom = Math.max(0.15, 1.0 - 0.65 * s.rho);
+  const Lambda = (1.0 - delta) / (delta * csdDenom);
+
+  const lambda0 = 42.0;
+  const beta = 0.38;
+  const lambda = Math.max(0.8, lambda0 * Math.exp(-beta * Lambda));
+
+  const spread = 0.32 + 0.25 * (1 - s.Phi);
+  const lambdaLow = Math.max(0.5, lambda * Math.exp(-spread));
+  const lambdaHigh = lambda * Math.exp(spread);
+
+  function cdf(t, scale) {
+    if (t <= 0) return 0;
+    if (s.dist === 'weibull') {
+      return 1.0 - Math.exp(-Math.pow(t / scale, s.k));
+    } else {
+      const alpha = 2.2;
+      return 1.0 - Math.pow(1.0 + Math.pow(t / scale, s.k), -alpha);
+    }
+  }
+
+  function pdf(t, scale) {
+    if (t <= 0.05) return 0;
+    const dt = 0.05;
+    return (cdf(t + dt, scale) - cdf(t - dt, scale)) / (2 * dt);
+  }
+
+  function quantile(p, scale) {
+    if (s.dist === 'weibull') {
+      return scale * Math.pow(-Math.log(1.0 - p), 1.0 / s.k);
+    } else {
+      const alpha = 2.2;
+      return scale * Math.pow(Math.pow(1.0 - p, -1.0 / alpha) - 1.0, 1.0 / s.k);
+    }
+  }
+
+  return {
+    geom, maxS, S_bar, delta, Lambda, lambda, lambdaLow, lambdaHigh,
+    median: quantile(0.5, lambda),
+    ci10: quantile(0.5, lambdaLow),
+    ci90: quantile(0.5, lambdaHigh),
+    prob5: cdf(5.0, lambda),
+    prob10: cdf(10.0, lambda),
+    cdf, pdf
+  };
+}
+
+function drawRadar(m) {
+  const canvas = document.getElementById('canvas-radar');
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const cx = w / 2, cy = h / 2;
+  const R = 98;
+
+  ctx.clearRect(0, 0, w, h);
+
+  const levels = [0.25, 0.5, 0.75, 1.0];
+  levels.forEach(lv => {
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * lv, 0, 2 * Math.PI);
+    ctx.strokeStyle = (lv === 1.0) ? 'rgba(239, 68, 68, 0.6)' : '#1e293b';
+    ctx.lineWidth = (lv === 1.0) ? 2 : 1;
+    if (lv === 0.75) ctx.setLineDash([3, 3]);
+    else ctx.setLineDash([]);
+    ctx.stroke();
+  });
+  ctx.setLineDash([]);
+
+  const axes = [
+    { angle: -Math.PI / 2, val: state.Sm, label: 'S_m (Material)', col: '#f59e0b' },
+    { angle: 0,            val: state.Sa, label: 'S_a (Claims)',   col: '#ef4444' },
+    { angle: Math.PI / 2,  val: state.Sb, label: 'S_b (Biology)',  col: '#38bdf8' },
+    { angle: Math.PI,      val: state.Sc, label: 'S_c (Capture)',  col: '#a855f7' }
+  ];
+
+  axes.forEach(ax => {
+    const x = cx + R * Math.cos(ax.angle);
+    const y = cy + R * Math.sin(ax.angle);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = '#24324a';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  ctx.beginPath();
+  axes.forEach((ax, idx) => {
+    const px = cx + R * ax.val * Math.cos(ax.angle);
+    const py = cy + R * ax.val * Math.sin(ax.angle);
+    if (idx === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  });
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(239, 68, 68, 0.22)';
+  ctx.fill();
+  ctx.strokeStyle = '#f87171';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  axes.forEach(ax => {
+    const px = cx + R * ax.val * Math.cos(ax.angle);
+    const py = cy + R * ax.val * Math.sin(ax.angle);
+    ctx.beginPath();
+    ctx.arc(px, py, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = ax.col;
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    const lx = cx + (R + 26) * Math.cos(ax.angle);
+    const ly = cy + (R + 18) * Math.sin(ax.angle);
+    ctx.fillStyle = ax.col;
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(`${ax.label}: ${ax.val.toFixed(2)}`, lx, ly);
+  });
+}
+
+function drawHazardChart(m) {
+  const canvas = document.getElementById('canvas-hazard');
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  const padL = 42, padR = 20, padT = 18, padB = 28;
+  const pw = w - padL - padR;
+  const ph = h - padT - padB;
+  const maxT = 20.0;
+
+  ctx.strokeStyle = '#1e293b';
+  ctx.lineWidth = 1;
+  for (let p = 0.25; p <= 1.0; p += 0.25) {
+    const y = padT + ph * (1 - p);
+    ctx.beginPath();
+    ctx.moveTo(padL, y);
+    ctx.lineTo(w - padR, y);
+    ctx.stroke();
+    ctx.fillStyle = '#8b9bb4';
+    ctx.font = '10px monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText((p * 100).toFixed(0) + '%', padL - 6, y + 3);
+  }
+
+  for (let t = 0; t <= 20; t += 5) {
+    const x = padL + (t / maxT) * pw;
+    ctx.beginPath();
+    ctx.moveTo(x, padT);
+    ctx.lineTo(x, h - padB);
+    ctx.stroke();
+    ctx.fillStyle = '#8b9bb4';
+    ctx.font = '10px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('+' + t + 'y', x, h - padB + 14);
+  }
+
+  ctx.beginPath();
+  const steps = 100;
+  for (let i = 0; i <= steps; i++) {
+    const t = (i / steps) * maxT;
+    const x = padL + (t / maxT) * pw;
+    const y = padT + ph * (1 - m.cdf(t, m.lambdaLow));
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  for (let i = steps; i >= 0; i--) {
+    const t = (i / steps) * maxT;
+    const x = padL + (t / maxT) * pw;
+    const y = padT + ph * (1 - m.cdf(t, m.lambdaHigh));
+    ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(56, 189, 248, 0.16)';
+  ctx.fill();
+
+  ctx.beginPath();
+  for (let i = 1; i <= steps; i++) {
+    const t = (i / steps) * maxT;
+    const x = padL + (t / maxT) * pw;
+    const density = Math.min(1.0, m.pdf(t, m.lambda) * 3.5);
+    const y = padT + ph * (1 - density);
+    if (i === 1) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.strokeStyle = 'rgba(245, 158, 11, 0.75)';
+  ctx.lineWidth = 1.8;
+  ctx.setLineDash([4, 3]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.beginPath();
+  for (let i = 0; i <= steps; i++) {
+    const t = (i / steps) * maxT;
+    const x = padL + (t / maxT) * pw;
+    const y = padT + ph * (1 - m.cdf(t, m.lambda));
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 2.8;
+  ctx.stroke();
+
+  if (m.median <= maxT) {
+    const mx = padL + (m.median / maxT) * pw;
+    const my = padT + ph * 0.5;
+    ctx.beginPath();
+    ctx.moveTo(mx, padT);
+    ctx.lineTo(mx, h - padB);
+    ctx.strokeStyle = '#ef4444';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(mx, my, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = '#ef4444';
+    ctx.fill();
+
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = (m.median > 14) ? 'right' : 'left';
+    ctx.fillText(`Median τ_50: ${m.median.toFixed(1)}y`, mx + (m.median > 14 ? -8 : 8), my - 8);
+  }
+
+  ctx.textAlign = 'left';
+  ctx.font = '11px sans-serif';
+  ctx.fillStyle = '#38bdf8';
+  ctx.fillText('━━ Cumulative Hazard CDF P(τ ≤ Δt)', padL + 10, padT + 14);
+  ctx.fillStyle = '#f59e0b';
+  ctx.fillText('╌╌ Escape Density Wave f(Δt) (scaled)', padL + 10, padT + 30);
+}
+
+function drawHistoryChart(m) {
+  const canvas = document.getElementById('canvas-history');
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  const padL = 42, padR = 24, padT = 14, padB = 26;
+  const pw = w - padL - padR;
+  const ph = h - padT - padB;
+
+  // Append live active point at the right edge so slider changes show vs history
+  const hist = (state.history && state.history.length > 0) ? state.history : defaultHistory;
+  const series = hist.concat([{
+    date: "Now",
+    delta: m.delta,
+    Sm: state.Sm,
+    Sa: state.Sa,
+    Sb: state.Sb,
+    Sc: state.Sc,
+    prob5: m.prob5
+  }]);
+
+  // Shade Separatrix Breach Zone (delta < 0.20)
+  const yCrit = padT + ph * (1 - 0.20);
+  ctx.fillStyle = 'rgba(239, 68, 68, 0.12)';
+  ctx.fillRect(padL, yCrit, pw, (h - padB) - yCrit);
+
+  ctx.beginPath();
+  ctx.moveTo(padL, yCrit);
+  ctx.lineTo(w - padR, yCrit);
+  ctx.strokeStyle = 'rgba(239, 68, 68, 0.65)';
+  ctx.setLineDash([4, 3]);
+  ctx.lineWidth = 1.2;
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Horizontal grid lines
+  [0.2, 0.5, 0.8].forEach(lv => {
+    const y = padT + ph * (1 - lv);
+    ctx.beginPath();
+    ctx.moveTo(padL, y);
+    ctx.lineTo(w - padR, y);
+    ctx.strokeStyle = '#1e293b';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.fillStyle = '#8b9bb4';
+    ctx.font = '10px monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(lv.toFixed(1), padL - 6, y + 3);
+  });
+
+  const n = series.length;
+  function getX(idx) {
+    return padL + (n <= 1 ? 0.5 : idx / (n - 1)) * pw;
+  }
+  function getY(val) {
+    return padT + ph * (1 - Math.max(0, Math.min(1, val)));
+  }
+
+  // Plot faint 4 domain strain lines
+  const subKeys = [
+    { k: 'Sm', col: 'rgba(245, 158, 11, 0.45)' },
+    { k: 'Sa', col: 'rgba(239, 68, 68, 0.45)' },
+    { k: 'Sb', col: 'rgba(56, 189, 248, 0.45)' },
+    { k: 'Sc', col: 'rgba(168, 85, 247, 0.45)' }
+  ];
+  subKeys.forEach(sk => {
+    ctx.beginPath();
+    series.forEach((pt, idx) => {
+      const x = getX(idx), y = getY(pt[sk.k] ?? 0.5);
+      if (idx === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+    ctx.strokeStyle = sk.col;
+    ctx.lineWidth = 1.3;
+    ctx.stroke();
+  });
+
+  // Plot Bold Separatrix Margin delta_Sigma(t)
+  ctx.beginPath();
+  series.forEach((pt, idx) => {
+    const x = getX(idx), y = getY(pt.delta);
+    if (idx === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.strokeStyle = '#10b981';
+  ctx.lineWidth = 2.8;
+  ctx.stroke();
+
+  // Plot nodes and date labels
+  series.forEach((pt, idx) => {
+    const x = getX(idx), y = getY(pt.delta);
+    ctx.beginPath();
+    ctx.arc(x, y, idx === n - 1 ? 4.5 : 3, 0, 2 * Math.PI);
+    ctx.fillStyle = idx === n - 1 ? '#fff' : '#10b981';
+    ctx.fill();
+
+    const step = Math.max(1, Math.floor(n / 6));
+    if (idx % step === 0 || idx === n - 1) {
+      ctx.fillStyle = '#8b9bb4';
+      ctx.font = '10px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(pt.date.slice(5), x, h - 8);
+    }
+  });
+
+  // Legend
+  ctx.textAlign = 'left';
+  ctx.font = 'bold 11px sans-serif';
+  ctx.fillStyle = '#10b981';
+  ctx.fillText('━━ Separatrix Margin δ_Σ(t) (Downward = Approaching Σ)', padL + 8, padT + 12);
+  ctx.font = '10.5px sans-serif';
+  ctx.fillStyle = '#94a3b8';
+  ctx.fillText('Thin lines: S_m (amber), S_a (red), S_b (blue), S_c (purple)', padL + 340, padT + 12);
+
+  document.getElementById('history-stat').textContent =
+    `${hist.length} Checkpoints Loaded | Latest δ_Σ: ${m.delta.toFixed(3)} (Crit < 0.20)`;
+}
+
+function updateUI() {
+  const m = computeModel(state);
+
+  document.getElementById('val-Sm').textContent = state.Sm.toFixed(2);
+  document.getElementById('val-Sa').textContent = state.Sa.toFixed(2);
+  document.getElementById('val-Sb').textContent = state.Sb.toFixed(2);
+  document.getElementById('val-Sc').textContent = state.Sc.toFixed(2);
+  document.getElementById('val-Phi').textContent = state.Phi.toFixed(2);
+  document.getElementById('val-rho').textContent = state.rho.toFixed(2);
+  document.getElementById('val-k').textContent = state.k.toFixed(2);
+
+  const elDelta = document.getElementById('kpi-delta');
+  elDelta.textContent = m.delta.toFixed(2);
+  elDelta.style.color = m.delta > 0.55 ? '#10b981' : (m.delta > 0.28 ? '#f59e0b' : '#ef4444');
+
+  document.getElementById('kpi-median').textContent = (m.median > 50 ? '>50' : m.median.toFixed(1)) + ' yrs';
+  document.getElementById('kpi-ci').textContent = `80% Band: [${m.ci10.toFixed(1)} – ${m.ci90 > 60 ? '>60' : m.ci90.toFixed(1)} yrs]`;
+
+  const elP5 = document.getElementById('kpi-prob5');
+  elP5.textContent = (m.prob5 * 100).toFixed(1) + '%';
+  elP5.style.color = m.prob5 < 0.15 ? '#10b981' : (m.prob5 < 0.45 ? '#f59e0b' : '#ef4444');
+  document.getElementById('kpi-prob10').textContent = `10-Year Cumulative Hazard: ${(m.prob10 * 100).toFixed(1)}%`;
+
+  const elReg = document.getElementById('kpi-regime');
+  const elRegSub = document.getElementById('kpi-regime-sub');
+  if (m.delta < 0.25) {
+    elReg.textContent = 'SEPARATRIX SNAP (Σ)';
+    elReg.style.color = '#ef4444';
+    elRegSub.textContent = 'O(N) Kuramoto phase-lock across all 4 layers';
+  } else if (state.Sa > 0.65 && state.Sm < 0.55) {
+    elReg.textContent = 'CLAIMS EXCURSION (τ_fin)';
+    elReg.style.color = '#f59e0b';
+    elRegSub.textContent = 'Fast-clock financial stress; substrate buffered';
+  } else if (m.delta < 0.48) {
+    elReg.textContent = 'CHIMERIC HOLLOWING';
+    elReg.style.color = '#a855f7';
+    elRegSub.textContent = 'Polite surface compliance; active enclave & TFR triage';
+  } else {
+    elReg.textContent = 'HOMEODYNAMIC N₀ BASIN';
+    elReg.style.color = '#10b981';
+    elRegSub.textContent = 'T_cover > T_recur; asynchronous O(√N) noise';
+  }
+
+  document.getElementById('radar-stat').textContent = `Hybrid Strain S̄: ${m.S_bar.toFixed(2)} | Sync Φ: ${state.Phi.toFixed(2)}`;
+  document.getElementById('hazard-stat').textContent = `Stress Λ: ${m.Lambda.toFixed(2)} | Scale λ: ${m.lambda.toFixed(1)}y`;
+
+  const capScore = state.Sc * (0.5 + 0.5 * state.Sa);
+  const exitScore = state.Sb * (0.5 + 0.5 * state.Sm);
+  const capShare = Math.round((capScore / (capScore + exitScore + 1e-6)) * 100);
+  const exitShare = 100 - capShare;
+
+  document.getElementById('bar-capture').style.width = capShare + '%';
+  document.getElementById('bar-capture').textContent = `Nᵢ,capture (${capShare}%)`;
+  document.getElementById('bar-exit').textContent = `Nᵢ,exit (${exitShare}%)`;
+
+  const compText = document.getElementById('compass-ratio');
+  if (capShare > 56) compText.textContent = 'Dominant Nucleation: Fortified Corporate/State Enclaves (Nᵢ,capture)';
+  else if (exitShare > 56) compText.textContent = 'Dominant Nucleation: Centrifugal Demographic & Local Exit (Nᵢ,exit)';
+  else compText.textContent = 'Dominant Nucleation: Dual-Track Chimeric Split (Enclaves + Exit)';
+
+  document.getElementById('json-box').value = JSON.stringify({
+    updated_utc: state.timestamp,
+    proxies: {
+      S_m_material: Number(state.Sm.toFixed(3)),
+      S_a_claims: Number(state.Sa.toFixed(3)),
+      S_b_biology: Number(state.Sb.toFixed(3)),
+      S_c_capture: Number(state.Sc.toFixed(3))
+    },
+    coupling: {
+      kuramoto_coherence_Phi: Number(state.Phi.toFixed(3)),
+      lag1_autocorr_rho1: Number(state.rho.toFixed(3))
+    },
+    hazard_model: {
+      distribution: state.dist,
+      shape_k: Number(state.k.toFixed(2)),
+      separatrix_margin_delta: Number(m.delta.toFixed(3)),
+      median_years_to_snap: Number(m.median.toFixed(2)),
+      prob_5yr_snap: Number(m.prob5.toFixed(3))
+    },
+    audit_note: state.driver_note,
+    history: state.history
+  }, null, 2);
+
+  document.getElementById('audit-note').textContent = `Audit Note (${state.timestamp}): ${state.driver_note}`;
+
+  drawRadar(m);
+  drawHazardChart(m);
+  drawHistoryChart(m);
+}
+
+function syncFromSliders() {
+  state.Sm = parseFloat(document.getElementById('sl-Sm').value);
+  state.Sa = parseFloat(document.getElementById('sl-Sa').value);
+  state.Sb = parseFloat(document.getElementById('sl-Sb').value);
+  state.Sc = parseFloat(document.getElementById('sl-Sc').value);
+  state.Phi = parseFloat(document.getElementById('sl-Phi').value);
+  state.rho = parseFloat(document.getElementById('sl-rho').value);
+  state.dist = document.getElementById('sel-dist').value;
+  state.k = parseFloat(document.getElementById('sl-k').value);
+  updateUI();
+}
+
+function loadPreset(key) {
+  document.querySelectorAll('.preset-group button').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('btn-' + key);
+  if (btn) btn.classList.add('active');
+
+  const p = presets[key];
+  state.timestamp = "Preset (" + key + ")";
+  state.driver_note = p.note;
+  document.getElementById('fetch-status').textContent = "Source: Preset (" + key + ")";
+  document.getElementById('fetch-status').style.color = "#38bdf8";
+
+  document.getElementById('sl-Sm').value = p.Sm;
+  document.getElementById('sl-Sa').value = p.Sa;
+  document.getElementById('sl-Sb').value = p.Sb;
+  document.getElementById('sl-Sc').value = p.Sc;
+  document.getElementById('sl-Phi').value = p.Phi;
+  document.getElementById('sl-rho').value = p.rho;
+  document.getElementById('sl-k').value = p.k;
+  syncFromSliders();
+}
+
+function ingestParsedTelemetry(parsed, isLiveFetch) {
+  if (parsed.updated_utc) state.timestamp = parsed.updated_utc;
+  if (parsed.audit_note) state.driver_note = parsed.audit_note;
+  if (Array.isArray(parsed.history) && parsed.history.length > 0) {
+    state.history = parsed.history;
+  }
+
+  if (parsed.proxies) {
+    document.getElementById('sl-Sm').value = parsed.proxies.S_m_material ?? state.Sm;
+    document.getElementById('sl-Sa').value = parsed.proxies.S_a_claims ?? state.Sa;
+    document.getElementById('sl-Sb').value = parsed.proxies.S_b_biology ?? state.Sb;
+    document.getElementById('sl-Sc').value = parsed.proxies.S_c_capture ?? state.Sc;
+  }
+  if (parsed.coupling) {
+    document.getElementById('sl-Phi').value = parsed.coupling.kuramoto_coherence_Phi ?? state.Phi;
+    document.getElementById('sl-rho').value = parsed.coupling.lag1_autocorr_rho1 ?? state.rho;
+  }
+  if (parsed.hazard_model) {
+    if (parsed.hazard_model.distribution) document.getElementById('sel-dist').value = parsed.hazard_model.distribution;
+    if (parsed.hazard_model.shape_k) document.getElementById('sl-k').value = parsed.hazard_model.shape_k;
+  }
+
+  if (isLiveFetch) {
+    document.querySelectorAll('.preset-group button').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-live').classList.add('active');
+    const st = document.getElementById('fetch-status');
+    st.textContent = "Live telemetry.json (" + state.timestamp.slice(0, 10) + ")";
+    st.style.color = "#10b981";
+  }
+  syncFromSliders();
+}
+
+async function fetchLiveTelemetry(manualClick = false) {
+  const st = document.getElementById('fetch-status');
+  try {
+    st.textContent = "Fetching telemetry.json...";
+    const res = await fetch('./telemetry.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    ingestParsedTelemetry(data, true);
+  } catch (err) {
+    st.textContent = "telemetry.json unavailable (Using Baseline)";
+    st.style.color = "#f59e0b";
+    if (manualClick) {
+      alert("Could not fetch ./telemetry.json (" + err.message + "). Make sure telemetry.json is in the same web directory and served over HTTP/HTTPS.");
+    }
+  }
+}
+
+function applyJsonPayload() {
+  try {
+    const parsed = JSON.parse(document.getElementById('json-box').value);
+    ingestParsedTelemetry(parsed, false);
+    document.getElementById('fetch-status').textContent = "Source: Manual JSON Edit";
+  } catch (e) {
+    alert("Invalid JSON format in payload box.");
+  }
+}
+
+updateUI();
+fetchLiveTelemetry(false);
+</script>
+</body>
+</html>
