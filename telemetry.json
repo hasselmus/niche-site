@@ -1,0 +1,31 @@
+{
+  "updated_utc": "2026-11-16T20:00:00Z",
+  "proxies": {
+    "S_m_material": 0.640,
+    "S_a_claims": 0.760,
+    "S_b_biology": 0.720,
+    "S_c_capture": 0.680
+  },
+  "coupling": {
+    "kuramoto_coherence_Phi": 0.680,
+    "lag1_autocorr_rho1": 0.720
+  },
+  "hazard_model": {
+    "distribution": "weibull",
+    "shape_k": 1.85,
+    "separatrix_margin_delta": 0.380,
+    "median_years_to_snap": 7.40,
+    "prob_5yr_snap": 0.362
+  },
+  "audit_note": "Initial Nov 2026 calibration: G7 debt-service/reinsurance ROL elevated (S_a=0.76), OECD TFR/youth housing compression locked (S_b=0.72), hyperscaler private baseload + CB gold accumulation active (S_c=0.68).",
+  "history": [
+    { "date": "2026-09-28", "delta": 0.412, "Sm": 0.610, "Sa": 0.735, "Sb": 0.710, "Sc": 0.650, "prob5": 0.312 },
+    { "date": "2026-10-05", "delta": 0.406, "Sm": 0.615, "Sa": 0.740, "Sb": 0.712, "Sc": 0.658, "prob5": 0.324 },
+    { "date": "2026-10-12", "delta": 0.401, "Sm": 0.622, "Sa": 0.745, "Sb": 0.715, "Sc": 0.662, "prob5": 0.335 },
+    { "date": "2026-10-19", "delta": 0.395, "Sm": 0.628, "Sa": 0.750, "Sb": 0.716, "Sc": 0.668, "prob5": 0.348 },
+    { "date": "2026-10-26", "delta": 0.390, "Sm": 0.632, "Sa": 0.752, "Sb": 0.718, "Sc": 0.672, "prob5": 0.359 },
+    { "date": "2026-11-02", "delta": 0.386, "Sm": 0.635, "Sa": 0.755, "Sb": 0.719, "Sc": 0.675, "prob5": 0.368 },
+    { "date": "2026-11-09", "delta": 0.383, "Sm": 0.638, "Sa": 0.758, "Sb": 0.720, "Sc": 0.678, "prob5": 0.374 },
+    { "date": "2026-11-16", "delta": 0.380, "Sm": 0.640, "Sa": 0.760, "Sb": 0.720, "Sc": 0.680, "prob5": 0.379 }
+  ]
+}
