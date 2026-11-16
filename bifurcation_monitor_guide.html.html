@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Guide — Global Basin Strain & Separatrix Hazard Monitor (DST–NCT)</title>
+<style>
+  :root {
+    --bg: #090d14;
+    --panel: #111723;
+    --panel-alt: #161f30;
+    --border: #24324a;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --m-col: #f59e0b;
+    --a-col: #ef4444;
+    --b-col: #38bdf8;
+    --c-col: #a855f7;
+    --safe: #10b981;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    padding: 24px 16px 60px;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  header {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .header-text { flex: 1; min-width: 280px; }
+  .eyebrow {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--b-col);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  a.btn {
+    display: inline-block;
+    text-decoration: none;
+    background: #1d4ed8;
+    color: #fff;
+    border: 1px solid #3b82f6;
+    border-radius: 6px;
+    padding: 9px 15px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+  a.btn:hover { background: #2563eb; }
+  a.btn-secondary {
+    background: #1e293b;
+    border-color: #334155;
+    color: var(--text);
+  }
+  a.btn-secondary:hover { background: #334155; }
+
+  section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin: 16px 0 6px;
+  }
+  p { margin-bottom: 12px; color: #cbd5e1; }
+  p:last-child { margin-bottom: 0; }
+  ul, ol {
+    margin: 8px 0 14px 22px;
+    color: #cbd5e1;
+  }
+  li { margin-bottom: 8px; }
+  strong { color: #fff; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 13px;
+    background: #070a0f;
+    border: 1px solid #1e293b;
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: var(--b-col);
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .domain-card {
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--muted);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .domain-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .domain-card p {
+    font-size: 13.5px;
+    margin-bottom: 6px;
+  }
+  .domain-card .sources {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  .callout {
+    background: #0c1322;
+    border: 1px solid #1e3a5f;
+    border-left: 4px solid var(--b-col);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 14px;
+    font-size: 13.5px;
+  }
+  .callout-warn {
+    border-color: #422006;
+    border-left-color: var(--m-col);
+    background: #141008;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12.5px;
+    padding-top: 12px;
+  }
+  footer a { color: var(--b-col); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-text">
+      <div class="eyebrow">Boundaries of the Niche — Companion Telemetry Guide</div>
+      <h1>How to Read the Global Basin Strain &amp; Separatrix Hazard Monitor</h1>
+      <p class="subtitle">An interactive state-space sandbox and weekly public-data tracker mapping how close the incumbent global macro-niche (N₀) is to modular fragmentation across the separatrix (Σ).</p>
+    </div>
+    <div class="nav-buttons">
+      <a href="./bifurcation_monitor_simulator.html" class="btn">Launch Live Simulator →</a>
+      <a href="./telemetry.json" class="btn btn-secondary">View Raw telemetry.json</a>
+      <a href="./" class="btn btn-secondary">Main Site Index</a>
+    </div>
+  </header>
+
+  <!-- 1. WHAT THIS TOOL IS -->
+  <section>
+    <h2>1. What Is This Monitor Measuring?</h2>
+    <p>
+      Standard economic dashboards—like GDP growth, headline inflation, or stock market indices—measure the world from <em>inside</em> the rules of the current institutional system (<strong>N₀</strong>). As long as credit expands and financial claims clear, conventional metrics can look calm even while physical energy buffers thin out, electrical grids age, property insurers withdraw, and young adults quietly postpone forming families.
+    </p>
+    <p>
+      Built as an exploratory companion to the <strong>Dissipative Structure Theory &amp; Niche Construction Theory (DST–NCT)</strong> framework, this monitor tracks the <strong>structural tension between symbolic claims and physical-biological reality</strong>.
+    </p>
+    <p>
+      In this framework, a <strong>"global bifurcation to a new niche" (N₀ → Σ → Nᵢ)</strong> does <em>not</em> mean the end of the physical world or human survival. It means the point where maintaining a single, tightly integrated global clearinghouse costs more energy and coordination friction than the center can sustain—causing the macro-system to cross a dynamical ridge (the <strong>separatrix, Σ</strong>) and reorganize into more localized, modular successor arrangements (<strong>Nᵢ</strong>).
+    </p>
+    <div class="callout">
+      <strong>Methodological Note (Conditional Heuristic, Not a Crystal Ball):</strong> The hazard percentages and time horizons displayed on the monitor are <em>conditional mathematical outputs</em> derived from a fat-tailed Weibull/Lomax reliability curve applied to four normalized proxy indices. They are designed to illustrate non-linear basin strain and synchronization dynamics, not to issue deterministic date predictions.
+    </div>
+  </section>
+
+  <!-- 2. THE FOUR TELEMETRY PROXIES -->
+  <section>
+    <h2>2. The Four Non-Averaged Domain Proxies</h2>
+    <p>
+      A core rule of the DST–NCT framework (Chapter 14) is that <strong>independent domains must never be flattened into a single averaged score</strong> where a boom in financial credit can mask a bottleneck in physical energy or demographics. Instead, the monitor tracks four separate strain indices on a <code>0.00</code> to <code>1.00</code> scale (where <code>~0.20</code> represents the stable 1990s post-Cold War baseline, <code>0.50</code> represents moderate strain, <code>0.70+</code> indicates active "chimeric hollowing," and <code>0.88+</code> approaches acute boundary breach):
+    </p>
+
+    <div class="grid-2">
+      <div class="domain-card" style="border-left-color: var(--m-col);">
+        <h4 style="color: var(--m-col);">1. Material Substrate Strain (S_m)</h4>
+        <p>Measures physical buffer depth relative to shock recurrence—whether reserves of food, energy, and critical grid hardware refill faster than disturbances hit.</p>
+        <div class="sources">Proxies: FAO/USDA global grain stocks-to-use, commercial oil/gas/diesel inventories, high-voltage transformer lead times, uninsured physical catastrophe losses.</div>
+      </div>
+
+      <div class="domain-card" style="border-left-color: var(--a-col);">
+        <h4 style="color: var(--a-col);">2. Fast-Clock Claims Divergence (S_a)</h4>
+        <p>Measures tension on the fast financial clock (τ_fin)—specifically where financial risk-pricing retreats from physical assets or requires continuous sovereign debt intervention.</p>
+        <div class="sources">Proxies: Global catastrophe reinsurance Rate-on-Line (ROL), G7 sovereign interest expense vs. tax receipts, property migration into state "insurers of last resort."</div>
+      </div>
+
+      <div class="domain-card" style="border-left-color: var(--b-col);">
+        <h4 style="color: var(--b-col);">3. Biological Vanguard Strain (S_b)</h4>
+        <p>Measures long-horizon biological confidence (τ_sig)—how young, high-sensitivity cohorts calibrate their life-history horizons under housing, care, and economic compression.</p>
+        <div class="sources">Proxies: OECD &amp; East Asian birth rate (TFR) slopes, young-adult parental co-residence and first-time homebuyer age, declining fertility responsiveness to state subsidies.</div>
+      </div>
+
+      <div class="domain-card" style="border-left-color: var(--c-col);">
+        <h4 style="color: var(--c-col);">4. Centripetal Enclave Capture (S_c)</h4>
+        <p>Measures "elite exit in place"—when major industrial, tech, and sovereign actors voluntarily pay a premium to bypass public systems and secure private physical buffers.</p>
+        <div class="sources">Proxies: Central bank physical gold accumulation vs. Treasury holdings, behind-the-meter private baseload power PPAs (data centers/industry), IMF/WTO trade restrictions.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SYNCHRONIZATION & THE WEIBULL HAZARD CURVE -->
+  <section>
+    <h2>3. Why Synchronization (Φ) and Slow Recovery (ρ₁) Matter</h2>
+    <p>
+      Complex systems rarely snap just because one domain has a bad year; in a healthy basin, a shock in finance is buffered by cheap energy, or a local supply bottleneck is absorbed by global trade. A true basin transition occurs when two dynamical amplifiers rise alongside the four strain indices:
+    </p>
+    <ul>
+      <li><strong>Cross-Layer Phase Coherence (Φ):</strong> Inspired by Kuramoto oscillator synchronization, this tracks whether all four domains are moving in lockstep. When material bottlenecks, insurance retreats, demographic horizon contraction, and private enclave hoarding all push outward simultaneously, random fluctuations stop canceling out and combine into a coherent structural wave.</li>
+      <li><strong>Critical Slowing Down / Lag-1 Autocorrelation (ρ₁):</strong> In dynamical systems theory, as a system approaches a tipping ridge (separatrix), its "restoring force" weakens. Disturbances take longer and longer to recover back to baseline because the next shock arrives before physical and fiscal buffers have finished refilling.</li>
+    </ul>
+    <p>
+      Together, the four strains and these coupling factors determine the <strong>Separatrix Distance Margin (δ_Σ)</strong>, where <code>1.00</code> is the calm center of the incumbent regime and values below <code>0.20</code> indicate the razor's edge of the transition ridge. This margin feeds a fat-tailed <strong>Weibull / Burr-Lomax survival curve</strong> that plots the probability wave of crossing the ridge over a 1-to-20-year horizon.
+    </p>
+  </section>
+
+  <!-- 4. HOW TO USE THE FOUR VISUAL PANELS -->
+  <section>
+    <h2>4. Reading the Four Visual Panels &amp; Interactive Controls</h2>
+    <ol>
+      <li><strong>Panel 1 — The 4-Layer State-Space Strain Radar:</strong> Plots <code>S_m</code>, <code>S_a</code>, <code>S_b</code>, and <code>S_c</code> on four independent axes. A small or lopsided shape indicates localized stress (like the 2008 financial crisis, which spiked <code>S_a</code> without breaking the other three). A wide, symmetric diamond pushing toward the outer red ring signals synchronized systemic strain.</li>
+      <li><strong>Panel 2 — Forward Separatrix Hazard Curve:</strong> Shows the cumulative probability <code>P(τ_snap ≤ Δt)</code> of a macro-coordinate transition over the next 20 years (solid blue line), the 80% uncertainty fan band (shaded blue), and the instantaneous probability density wave (dashed amber line).</li>
+      <li><strong>Panel 3 — The Post-Separatrix Nucleation Compass:</strong> Incumbent models often suffer from <em>Successor-State Exclusion</em>—assuming that outside the current system lies only chaos. This compass compares the momentum of <strong>Centripetal Enclave Capture (Nᵢ,capture)</strong> (fortified corporate grids, sovereign resource hoarding) against <strong>Centrifugal Biological Exit (Nᵢ,exit)</strong> (household re-familialisation, fertility decoupling, local informal subsistence) to show which direction successor structures are currently pulling.</li>
+      <li><strong>Panel 4 — Rolling Historical Telemetry Drift:</strong> Plots the week-by-week trajectory of the Separatrix Distance Margin <code>δ_Σ(t)</code> (bold green line) alongside the four underlying strain indices across up to 52 weekly checkpoints.</li>
+    </ol>
+    <h3>Interactive Exploration vs. Live Telemetry</h3>
+    <p>
+      Use the buttons in the top-right header of the simulator to switch between historical/projected presets (<strong>1995 Post-Cold War Expansion</strong>, <strong>2008 GFC Claims Shock</strong>, <strong>Projected Phase-Locked Cliff</strong>) and the green <strong>⚡ Pull Live telemetry.json</strong> button. You can also drag any slider on the left sidebar to run your own counterfactual stress tests—for example, switching the tail law from <em>Weibull</em> to <em>Burr XII / Lomax</em> or testing how much lowering <code>Φ</code> widens the survival horizon.
+    </p>
+  </section>
+
+  <!-- 5. HOW THE WEEKLY AI TELEMETRY UPDATE WORKS -->
+  <section>
+    <h2>5. How the Automated Weekly Telemetry Update Works</h2>
+    <p>
+      Every Monday morning (09:00 CET), an automated AI research task reads the current <code>telemetry.json</code> file in the repository, audits newly published empirical releases from the past 7–30 days across all four domains (IEA/EIA inventories, FAO grain reports, reinsurance and sovereign debt metrics, national birth/household releases, and central bank/grid data), and commits an updated checkpoint.
+    </p>
+    <p>
+      To prevent 24-hour media hype or political rhetoric from causing erratic jumps, the updater operates under a <strong>Kalman-style damping rule</strong>: it treats the previous week's state as a Bayesian prior, ignores purely symbolic political announcements ("cheap talk"), and caps normal weekly parameter adjustments to <code>±0.015</code> unless a verified physical or institutional rupture has occurred.
+    </p>
+    <div class="callout callout-warn">
+      <strong>Calibration Note on the 16 November 2026 Checkpoint:</strong> When the automated updater executed its first live verification on 16 November 2026, it corrected an initial seed-file inconsistency where the static placeholder listed a 36.2% five-year hazard while the underlying Weibull equations actually evaluated to ~15.0%–15.5% (with a median horizon of 10.74 years at <code>δ_Σ = 0.3816</code>). Earlier seeded points in the history array retain their pre-recalibration values, so the visible step in <code>prob5</code> on 16 November reflects mathematical formula alignment rather than an abrupt physical shock.
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Companion module to Henrik Hagnell (2026), <em>Boundaries of the Niche: Exergy, Institutional Claims, and Biological Continuity in Coupled Human Systems</em> (<a href="https://doi.org/10.5281/zenodo.24242901" target="_blank" rel="noopener">DOI: 10.5281/zenodo.24242901</a>).<br>
+      <a href="./bifurcation_monitor_simulator.html">Open Simulator</a> &bull; <a href="./telemetry.json">View telemetry.json</a> &bull; <a href="https://niched.hagnell.com/">niched.hagnell.com</a>
+    </p>
+  </footer>
+</div>
+
+</body>
+</html>
