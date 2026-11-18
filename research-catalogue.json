@@ -1,0 +1,232 @@
+{
+  "updated": "2026-11-18",
+  "author": "Henrik Hagnell",
+  "orcid": "0000-0002-5324-5779",
+  "frameworkDOI": "10.5281/zenodo.24242901",
+  "companionCollectionDOI": "10.5281/zenodo.24248701",
+  "records": [
+    {
+      "id": "framework",
+      "type": "framework",
+      "title": "Boundaries of the Niche: Exergy, Institutional Claims, and Biological Continuity in Coupled Human Systems",
+      "shortTitle": "Boundaries of the Niche",
+      "date": "2026-11-15",
+      "version": "Draft · 15 November 2026",
+      "page": "framework.html",
+      "pdf": "NicheBook.pdf",
+      "doi": "10.5281/zenodo.24242901",
+      "keywords": [
+        "dissipative structures",
+        "niche construction",
+        "exergy",
+        "institutional claims",
+        "biological continuity",
+        "regime transitions"
+      ],
+      "abstract": "This draft develops a coupled state-space framework for reconstructing the material, institutional and biological conditions of human systems. It separates physical exergy reserves and persistent infrastructure from institutional rules, claims and models, while treating populations as adaptive biological systems with distinct response and developmental timescales. The framework examines how buffer depletion, institutional lag, demographic adjustment and cross-layer feedback affect the accessibility of incumbent and successor configurations. Scenario reconstruction is conditional on observable constraints, rather than a claim of inevitable collapse or a uniquely prescribed successor regime.",
+      "relationship": "Parent framework defining x(t) = (b(t), m(t), a(t), u(t)) and the physical and temporal boundary conditions used by the companions.",
+      "observable": "Buffer coverage and refill rates, infrastructure maintenance balances, claims-versus-delivery discrepancies, demographic responses and changes in feasible regime configurations."
+    },
+    {
+      "id": "vertical",
+      "type": "companion",
+      "title": "The Vertical Excursion: How Human Institutions Emerged, Decoupled from Biology, and Built the Modern Macro-Basin",
+      "shortTitle": "Vertical Evolution",
+      "date": "2026-11-15",
+      "version": "15 November 2026",
+      "page": "companions/vertical-evolution.html",
+      "pdf": "companions/Companion_Vertical_Evolution.pdf",
+      "collectionDOI": "10.5281/zenodo.24248701",
+      "keywords": [
+        "institutional evolution",
+        "resource circumscription",
+        "storage",
+        "transgenerational office",
+        "kinship networks",
+        "institutional persistence"
+      ],
+      "abstract": "This historical and evolutionary companion asks how resource concentration, defensible bottlenecks, durable storage, externalised records and repeated coordination demands selected for permanent vertical offices. It distinguishes temporary human hierarchies from institutions able to retain claims and operational memory beyond their current occupants. The analysis follows the interaction between vertical coordination, horizontal kin networks, physical maintenance costs and developmental adaptation, supplying the historical boundary conditions for the parent framework's institutional state-space.",
+      "relationship": "Pre-framework genesis module; supplies initial historical conditions and interpretive links to Chapters 1–2 and later institutional, demographic and trust mechanisms.",
+      "observable": "Persistence of offices across succession, storage and resource chokepoints, exit costs, mobilisation overhead and the balance between central maintenance and local networks."
+    },
+    {
+      "id": "phase",
+      "type": "companion",
+      "title": "Companion Module: Excitable Phase-Synchronisation, Neuroendocrine Calibration, and Multiplex Triage Cascades",
+      "shortTitle": "Excitable Phase-Synchronisation",
+      "date": "2026-11-15",
+      "version": "15 November 2026",
+      "page": "companions/phase-synchronisation.html",
+      "pdf": "companions/Companion_Excitable_Phase_Synchronisation.pdf",
+      "collectionDOI": "10.5281/zenodo.24248701",
+      "keywords": [
+        "active rotators",
+        "phase synchronisation",
+        "critical transitions",
+        "common noise",
+        "hysteresis",
+        "neuroendocrine calibration",
+        "multiplex networks"
+      ],
+      "abstract": "This modelling companion connects episodic biological stress and organisational commitment dynamics to nonlinear phase transitions. It distinguishes correlated exposure, threshold cascades and genuine oscillator synchronisation, then uses excitable active-rotator dynamics, common forcing, network coupling and inertia to describe possible aggregate signalling and hysteresis. Its proposed cross-scale correspondence is explicitly a testable mapping rather than an empirically established macro-social law; the paper identifies observable signatures needed to discriminate the mechanisms.",
+      "relationship": "Mathematical and micro-dynamical extension to framework Chapters 9–12, cross-linked to the Social Trust Sensor.",
+      "observable": "Phase-locking and cross-spectral coherence versus mere shared exposure; variance, phase-cluster splitting, threshold cascades and asymmetric recovery after common shocks."
+    },
+    {
+      "id": "trust",
+      "type": "companion",
+      "title": "Social Trust as an Observational Sensor for Institutional Niche Dynamics",
+      "shortTitle": "Social Trust Sensor",
+      "date": "2026-11-15",
+      "version": "Revised manuscript · 15 November 2026",
+      "page": "companions/social-trust-sensor.html",
+      "pdf": "companions/Companion_Social_Trust_Sensor.pdf",
+      "collectionDOI": "10.5281/zenodo.24248701",
+      "keywords": [
+        "relational trust",
+        "allostasis",
+        "generalised unsafety",
+        "information asymmetry",
+        "institutional resilience",
+        "hysteresis",
+        "care networks",
+        "resource buffering"
+      ],
+      "abstract": "This paper formalises trust as a domain-specific, directional observational sensor operating on three response times: autonomic detection, pragmatic reliance and verification, and inherited declarative schemas. It preserves the parent DST–NCT state-space without treating trust as a fifth fundamental state or an exergy stock. A history-dependent observation operator links these clocks to exposure, care provision and institutional information. Proposed telemetry and falsification conditions test whether discordance among physiological response, demonstrated reliance and declared confidence improves detection of hidden institutional changes beyond surveys and macroeconomic accounts.",
+      "relationship": "Three-clock empirical observation companion to framework Chapters 9–12, paired with the Excitable Phase-Synchronisation module.",
+      "observable": "Divergence between autonomic strain, practical checking or withdrawal, and declared trust, stratified by exposure, counterparty, care domain and network position."
+    },
+    {
+      "id": "narrative",
+      "type": "companion",
+      "title": "Narratives, Forward Strategy, and Institutional Observation",
+      "shortTitle": "Narrative Mapping",
+      "date": "2026-11-15",
+      "version": "15 November 2026",
+      "page": "companions/narrative-mapping.html",
+      "pdf": "companions/Companion_Narrative_mapping.pdf",
+      "collectionDOI": "10.5281/zenodo.24248701",
+      "keywords": [
+        "institutional narratives",
+        "strategic commitments",
+        "schema mimicry",
+        "information asymmetry",
+        "physical investment",
+        "observation operators"
+      ],
+      "abstract": "This analytical guide distinguishes shared narratives that regulate expectations from forward strategy that commits resources under physical constraints. It traces how institutional continuity language can remain coherent while material delivery or maintenance changes, and proposes operational tests based on costly commitments, timing and realised capacity rather than rhetoric alone. The guide positions narratives as situated observation and coordination processes rather than independent material resources.",
+      "relationship": "Epistemic and operational mapping linked to framework Chapters 2, 4 and 14 and to the trust and cultural companions.",
+      "observable": "Verifiable resource reallocations, completion deadlines, infrastructure service outcomes and differences between stated continuity and realised physical capacity."
+    },
+    {
+      "id": "faith",
+      "type": "companion",
+      "title": "Standalone Mapping: Shared Meaning-Systems, Religions, and Secular Faiths Across the Niche Lifecycle",
+      "shortTitle": "Faith Mapping",
+      "date": "2026-11-15",
+      "version": "15 November 2026",
+      "page": "companions/faith-mapping.html",
+      "pdf": "companions/Companion_Faith_mapping.pdf",
+      "collectionDOI": "10.5281/zenodo.24248701",
+      "keywords": [
+        "cultural evolution",
+        "religion",
+        "secular belief systems",
+        "ritual",
+        "common knowledge",
+        "care networks",
+        "institutional continuity"
+      ],
+      "abstract": "This mapping treats religious and secular meaning-systems as composite coordination architectures rather than unitary ideological entities. It identifies narratives, internalised behavioural rules, collective ritual, costly credibility signals and material care institutions, together with structural constraints on specialised roles. Their differing adjustment timescales explain how a seemingly unified institutional belief system can retain some functions while other components reorganise under material pressure.",
+      "relationship": "Cultural and coordination mapping of framework Chapters 4 and 9–12; connects to Social Trust Sensor and Narrative Mapping.",
+      "observable": "Changes in ritual participation, costly commitments, care delivery, institutional credibility, intergenerational coordination and the persistence or modular recombination of component functions."
+    },
+    {
+      "id": "cultural",
+      "type": "companion",
+      "title": "Cultural Simulation, Counterfactual Coordination, and Successor-State Telemetry",
+      "shortTitle": "Cultural Mapping",
+      "date": "2026-11-15",
+      "version": "15 November 2026",
+      "page": "companions/cultural-mapping.html",
+      "pdf": "companions/Companion_Cultural_mapping.pdf",
+      "collectionDOI": "10.5281/zenodo.24248701",
+      "keywords": [
+        "cultural simulation",
+        "counterfactual search",
+        "successor states",
+        "collective coordination",
+        "behavioural rehearsal",
+        "observation"
+      ],
+      "abstract": "This companion examines fictional worlds, games, reenactment and other cultural simulations as possible low-cost environments for exploring counterfactual social and resource arrangements. It distinguishes rehearsal that transfers into physical skills or coordination from symbolic substitution without such transfer. A six-domain observation matrix separates represented institutional rules, threat contingencies, cohort participation, network topology, conversion into action and production or patronage structures. Cultural signals remain subordinate to independently measured physical and demographic conditions.",
+      "relationship": "External cultural observation module for framework Chapters 4, 10, 12 and 14, cross-referenced to the Social Trust Sensor.",
+      "observable": "Movement from simulated rules and shared symbols to acquired physical competence, measurable preparation, coalition topology or committed resources."
+    },
+    {
+      "id": "war",
+      "type": "companion",
+      "title": "Exogenous Canopy–Substrate Decoupling: Total War, Siege, Counterinsurgency, and Hybrid Subversion in the DST–NCT Framework",
+      "shortTitle": "Total War",
+      "date": "2026-11-15",
+      "version": "15 November 2026",
+      "page": "companions/total-war.html",
+      "pdf": "companions/Companion_Total_War.pdf",
+      "collectionDOI": "10.5281/zenodo.24248701",
+      "keywords": [
+        "war",
+        "siege",
+        "counterinsurgency",
+        "civilian infrastructure",
+        "coercion",
+        "resource denial",
+        "institutional continuity"
+      ],
+      "abstract": "This strategic companion applies the DST–NCT state-space to external physical and informational perturbations during total war, siege, counterinsurgency and economic coercion. It distinguishes attacks that reduce operational capacity from coercion intended to induce attitudes or political compliance, and describes how rationing monopolies and local protection can preserve dependence on an incumbent apparatus despite severe damage. Comparative conflict topologies are used to specify conditions under which physical degradation, behavioural decoupling and institutional replacement diverge.",
+      "relationship": "Applied conflict module extending framework Chapters 13–14 and drawing upon trust, phase-synchronisation and cultural mappings.",
+      "observable": "Infrastructure repair versus recurrent disruption, delivered essentials, supply-route control, local protection, behavioural alignment and the existence of viable substitute arrangements."
+    },
+    {
+      "id": "wearable",
+      "type": "independent",
+      "title": "Distributed Wearable Autonomic Telemetry as a Macro-Social Sensor Array: Evolutionary Calibration, Spatio-Temporal Phase Synchronisation, and Institutional Observability",
+      "shortTitle": "Distributed Wearable Autonomic Telemetry",
+      "date": "2026-11-18",
+      "version": "Standalone research and architecture paper · 18 November 2026",
+      "page": "wearable-telemetry.html",
+      "doi": "10.5281/zenodo.24325506",
+      "keywords": [
+        "wearable sensing",
+        "heart-rate variability",
+        "photoplethysmography",
+        "population telemetry",
+        "spatio-temporal synchronisation",
+        "institutional observability",
+        "signal processing"
+      ],
+      "abstract": "This standalone research and architecture paper investigates whether longitudinally calibrated consumer wearables can form a distributed macro-social sensor array. It combines wearable photoplethysmography and heart-rate variability, movement, temperature and sleep data with within-person calibration, geospatial aggregation and network-level synchronisation measures. It differentiates heterogeneous reactivity and recovery profiles while examining non-random device dropout, common-cause confounding, mathematical non-invertibility, network dependence and measurement gaming. The proposal is a research architecture and set of testable hypotheses, not a validated population-scale early-warning instrument.",
+      "relationship": "Independent paper, not a formal extension of the parent framework; it cites the Social Trust Sensor and Excitable Phase-Synchronisation companions as related mechanisms.",
+      "observable": "Within-person autonomic recovery, correlated residuals after movement and illness filtering, geographic phase coherence, slow recovery and representation or attrition bias."
+    },
+    {
+      "id": "overview",
+      "type": "guide",
+      "title": "How the Companions Interlock as a System",
+      "shortTitle": "Companion Overview",
+      "date": "2026-11-15",
+      "version": "15 November 2026",
+      "page": "companions/overview.html",
+      "pdf": "companions/Companion_Overview.pdf",
+      "collectionDOI": "10.5281/zenodo.24248701",
+      "keywords": [
+        "reading guide",
+        "companion architecture",
+        "cross-references",
+        "DST–NCT"
+      ],
+      "abstract": "A structural reading guide that locates the seven companion manuscripts around the parent framework. It groups them into historical genesis, micro-dynamical and somatic sensing, cultural and epistemic mapping, and antagonistic perturbation, with an interlock table and suggested analytical precedence order.",
+      "relationship": "Reference map rather than an independent research paper; identifies where each of the seven companions attaches to the parent framework.",
+      "observable": "Not an empirical hypothesis; this document maps dependencies and recommended reading order."
+    }
+  ]
+}
