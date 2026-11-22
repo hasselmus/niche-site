@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18",
+  "updated": "2026-11-22",
   "author": "Henrik Hagnell",
   "orcid": "0000-0002-5324-5779",
   "frameworkDOI": "10.5281/zenodo.24242901",
@@ -95,6 +95,28 @@
       "abstract": "This paper formalises trust as a domain-specific, directional observational sensor operating on three response times: autonomic detection, pragmatic reliance and verification, and inherited declarative schemas. It preserves the parent DST–NCT state-space without treating trust as a fifth fundamental state or an exergy stock. A history-dependent observation operator links these clocks to exposure, care provision and institutional information. Proposed telemetry and falsification conditions test whether discordance among physiological response, demonstrated reliance and declared confidence improves detection of hidden institutional changes beyond surveys and macroeconomic accounts.",
       "relationship": "Three-clock empirical observation companion to framework Chapters 9–12, paired with the Excitable Phase-Synchronisation module.",
       "observable": "Divergence between autonomic strain, practical checking or withdrawal, and declared trust, stratified by exposure, counterparty, care domain and network position."
+    },
+    {
+      "id": "firewalls",
+      "type": "companion",
+      "title": "Sub-Floor Firewalls: Binary Taboos, Verification Overhead, and Horizontal Substrate Damage",
+      "shortTitle": "Sub-Floor Firewalls",
+      "date": "2026-11-22",
+      "version": "22 November 2026",
+      "page": "companions/sub-floor-firewalls.html",
+      "pdf": "companions/Companion_Sub_Floor_Firewalls.pdf",
+      "keywords": [
+        "anthropological boundaries",
+        "verification overhead",
+        "horizontal trust",
+        "care boundary",
+        "binary norms",
+        "institutional succession",
+        "hysteresis"
+      ],
+      "abstract": "This companion distinguishes three boundaries in the DST–NCT framework: the incumbent institutional separatrix (Σ), the care boundary (Σcare), and a deeper horizontal biological-social floor. It proposes that shared prohibitions around bodily non-predation, developmental safety, care of dependent people, physical-substrate integrity, and treatment of the dead reduce verification overhead in conditions of asymmetric vulnerability. The paper contrasts scarcity-driven breaches with administrative exception drift, drawing on the Chinese Great Famine and Canadian medical assistance in dying as comparative cases. Its central hypothesis is that some boundary violations impair cooperative trust and successor-niche formation independently of the survival or failure of the incumbent institution.",
+      "relationship": "Tier II companion to the parent framework's distinction between institutional separatrices (Σ), the care boundary (Σcare) and biological continuity; linked especially to Chapters 4 and 11–12, Social Trust Sensor, and Excitable Phase-Synchronisation.",
+      "observable": "Assess whether introducing discretionary exceptions increases verification labour, disputed eligibility, defensive checking and long-horizon withdrawal, and whether boundary breaches predict persistent horizontal trust deficits after institutional reorganisation."
     },
     {
       "id": "narrative",
