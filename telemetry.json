@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-11-16T19:37:10.649Z",
+  "updated_utc": "2026-11-23T09:16:02.127Z",
   "proxies": {
-    "S_m_material": 0.646,
+    "S_m_material": 0.649,
     "S_a_claims": 0.765,
     "S_b_biology": 0.719,
     "S_c_capture": 0.685
@@ -13,11 +13,11 @@
   "hazard_model": {
     "distribution": "weibull",
     "shape_k": 1.85,
-    "separatrix_margin_delta": 0.3816258564405468,
-    "median_years_to_snap": 10.735991136662197,
-    "prob_5yr_snap": 0.15515467906124958
+    "separatrix_margin_delta": 0.3811741084376853,
+    "median_years_to_snap": 10.71202712734938,
+    "prob_5yr_snap": 0.15574455375567164
   },
-  "audit_note": "2026-11-16 update, model-conditioned indices (not independently calibrated global hazards). Sm +0.006: IEA 13 Nov reported Oct OECD stocks -47 Mb and on-land inventories at >=2016 lows; GIE AGSI+ gas-day 14 Nov EU storage 70.55% versus five-year 88.5%; EIA SPR week ending 6 Nov 279.535 Mb. Offsets: IEA global observed inventories +52 Mb in Oct and 10 Nov USDA/WASDE world wheat ending stocks +4.78 Mt. Sa +0.005: CBO 9 Nov FY2026 US deficit $1.992tn; California FAIR Plan Sept 2026 exposure $773bn (+11% y/y), against reported softening reinsurance ROL, so no acute pricing rupture is asserted. Sb -0.001: NAR 5 Nov median first-time buyer age 40; NY Fed 10 Nov Q3 loans delinquent 5.0% (+0.3pp q/q); offset South Korea August births +13.0% y/y (28 Oct release). Sc +0.005: WGC 3 Nov Q3 central bank gold net +321t (+42% y/y), September reported +61t (4 Nov); China rare-earth licensing mix includes suspended controls. Phi -0.005 as latest proxy signs diverge; rho1 +0.006 under slow SPR/on-land refilling; k=1.85 unchanged (no global physical Ds>Gs+Rs acceleration measured). Today's provisional history checkpoint replaced, not duplicated. Hazard outputs recomputed from specified equations; prior stored hazard fields were inconsistent. Sources: https://www.iea.org/reports/oil-market-report-november-2026 ; https://global-energy-flow.com/storage/ ; https://www.eia.gov/petroleum/supply/weekly/ ; https://www.graindecision.com/en/analyses/usda/wasde-report-november-2026 ; https://www.cbo.gov/publication/61986 ; https://www.cfpnet.com/key-statistics-data/ ; https://www.newyorkfed.org/newsevents/news/research/2026/20261110 ; https://www.nar.realtor/newsroom/first-time-home-buyer-share-inches-up-to-22-median-age-remains-at-record-high-of-40 ; https://mods.go.kr/boardDownload.es?bid=11749&list_no=447827&seq=1 ; https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-q3-2026 ; https://www.gold.org/goldhub/gold-focus/2026/11/central-bank-gold-statistics-september-2026",
+  "audit_note": "2026-11-23 evidence-constrained update. Sm 0.646->0.649 (+0.003): GIE primary operator 22 Nov EU gas storage 781.10 TWh, 68.98% full; Germany 56.54%; 14 Nov EU 70.55% in prior audit. IEA 13 Nov: OECD October oil inventories -47 Mb, on-land stocks lowest since at least 2016, diesel ~US$180/bbl (77% above pre-war); contrary evidence observed global oil inventories +52 Mb in October, world oil supply +2.3 mb/d, crude benchmark -32% from early-October high. USDA 10 Nov WASDE forecasts 2026/27 world wheat ending stocks 280.82 Mt (+4.78 Mt) and corn 281.94 Mt (+1.50 Mt), offsetting grain buffer (forecast not measured stock). Sa 0.765 unchanged: Treasury certified November 2026 five-year rate 5% versus October 4-5/8%, not a decomposition of term premium; no new verified reinsurance/sovereign emergency-liquidity rupture. Sb 0.719 unchanged: no independently verified new births, first-homebuyer, youth delinquency or frontline care delivery release warrants a move. Sc 0.685 unchanged: WGC Q3 estimated official-sector gold buying 321.2t (+42% y/y), while publicly reported September +61t and reported year-to-date 228t (-7% y/y); these are distinct series. No newly verified physically commissioned hyperscaler power, implemented mineral-control or settlement shift. Phi 0.675 unchanged: last four history checkpoints have mixed directions (Sb fell last week); this week only Sm changes. rho1 0.726 unchanged: seasonal gas draw is not measured post-shock refill speed relative to recurrence. Weibull k 1.85 unchanged absent demonstrated accelerating global net infrastructure maintenance deficits. Heuristic proxies, coupling and hazard are not empirically calibrated to global regime-transition frequencies. Sources: https://www.gie.eu/ ; https://www.iea.org/reports/oil-market-report-november-2026 ; https://www.usda.gov/oce/commodity/wasde ; https://fiscaldata.treasury.gov/datasets/treasury-certified-interest-rates-monthly/ ; https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-q3-2026/central-banks ; https://www.gold.org/goldhub/gold-focus/2026/11/central-bank-gold-statistics-september-2026 ; https://www.eia.gov/petroleum/data.php . Recent quantitative fertiliser, grid/logistics, reinsurance and care data not adequately verified for additional adjustments. Hazard recomputed with full floating-point precision; 5-year snap is a conditional uncalibrated model output, NOT a validated real-world probability.",
   "history": [
     {
       "date": "2026-09-28",
@@ -90,6 +90,15 @@
       "Sb": 0.719,
       "Sc": 0.685,
       "prob5": 0.15515467906124958
+    },
+    {
+      "date": "2026-11-23",
+      "delta": 0.3811741084376853,
+      "Sm": 0.649,
+      "Sa": 0.765,
+      "Sb": 0.719,
+      "Sc": 0.685,
+      "prob5": 0.15574455375567164
     }
   ]
 }
